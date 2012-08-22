@@ -9,6 +9,9 @@
 		function onCreate(){
 			var doc = document;
 			var dressListText = "<tr>";
+				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\">";
+				dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\" >";
+				dressListText +="</td>";
 			for(var i=0; i<10; i++){
 				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\">";
 				dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\" >";
@@ -16,15 +19,17 @@
 			}
 			dressListText += "</tr>";
 			doc.getElementById("dressPhotoListTable").innerHTML = dressListText
-			doc.getElementById("dressPhotoListTable").style.width= 90*10+"px";
+			doc.getElementById("dressPhotoListTable").style.width= 90*11+"px";
 			
 		}
 	
 		function shopNameMouseOver(node){
-			node.style.color="rgb(200, 200, 10)";
+			node.style.color="rgb(20, 20, 200)";
+			node.style.backgroundColor="rgb(150, 150, 250)";
 		}
 		function shopNameMouseOut(node){
 			node.style.color="rgb(0, 0, 0)";
+			node.style.backgroundColor="rgb(255, 255, 255)";
 		}
 		
 		function dressListMouseOver(){
@@ -40,7 +45,7 @@
 		
 		function dressListScrollButtonOver(node){
 			dressListMouseOver();
-			node.style.color="rgb(230, 10, 10)";
+			node.style.color="rgb(10, 10, 230)";
 		}
 		function dressListScrollButtonOut(node){
 			dressListMouseOut();
@@ -57,12 +62,23 @@
 		
 		
 		function smallDressOver(node){
-			node.style.backgroundColor="rgba(255,0,0,0.5)";
+			node.style.backgroundColor="rgba(80,80,180,0.5)";
 			node.childNodes[0].style.opacity=0.5;
 		}
 		function smallDressOut(node){
 			node.style.backgroundColor="rgb(255,255,255)";
 			node.childNodes[0].style.opacity=1;
+		}
+		
+		function designerPicMouseOver(){
+			var doc = document;
+			doc.getElementById("designerPicImgCell").style.backgroundColor="rgb(255,255,255)";
+			doc.getElementById("designerPicImg").style.opacity=1.0;
+		}
+		function designerPicMouseOut(){
+			var doc = document;
+			doc.getElementById("designerPicImgCell").style.backgroundColor="rgb(102,102,102)";
+			doc.getElementById("designerPicImg").style.opacity=0.5;
 		}
 	</SCRIPT>
 </head> 
@@ -108,22 +124,34 @@
 					<input class="dressPhotoListScroll" id="scrollRightButton" type="button" value=">"onmouseover="dressListScrollButtonOver(this)" onmouseout="dressListScrollButtonOut(this)" onclick="dressListScroll(1)">		
 				</td>
 				<td id="dressDetailCell2" valign="top">
-					<div id="designerDiv">
-						<table>
-							<tr>
-								<td id="designerPicCell" align="center">
-									<img id="designerPicImg" src="images/designer.jpg">
-									<div id="designerName" align="center">전진우 디자이너</div>
-								</td>
-								<td class="designConceptDiv" align="center">
+					<table id="designerTable">
+						<tr>
+							<td class="designerPicCell" valign="top" align="center">
+								<ul>
+									<li id="designerPicImgCell" onmouseover="designerPicMouseOver()" onmouseout="designerPicMouseOut()">
+										<img id="designerPicImg" src="images/designer.jpg">
+									</li>
+									<li id="designerName" align="center">
+										전진우 디자이너
+									</li>
+								</ul>
+							</td>
+							<td class="designConceptCell" align="center">
 									드레스 컨셉 설명
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div id="archiveDiv">
-												
-					</div>
+							</td>
+						</tr>
+					</table>
+					<table id="archiveTable">
+						<tr>
+							<td class="archiveGraphCell">
+								<div id="archiveGraphFill"></div>
+								<input id="archiveGraphText" type="button" value="이 드레스를 입어 보고 싶어요">
+							</td>
+							<td class="storeButtonCell" align="center"> 
+								<input id="storeButton" type="button" value="보관함에 담기" onmouseover="shopNameMouseOver(this)" onmouseout="shopNameMouseOut(this)">
+							</td>
+						</tr>
+					</table>
 					<div id="otherDressDiv">
 												
 					</div>
