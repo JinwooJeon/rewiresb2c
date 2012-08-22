@@ -10,11 +10,11 @@
 		function onCreate(){
 			var doc = document;
 			var dressListText = "<tr>";
-				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\">";
+				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
 				dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\" >";
 				dressListText +="</td>";
 			for(var i=0; i<10; i++){
-				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\">";
+				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
 				dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\" >";
 				dressListText +="</td>";
 			}
@@ -70,6 +70,10 @@
 			node.style.backgroundColor="rgb(255,255,255)";
 			node.childNodes[0].style.opacity=1;
 		}
+		function smallDressClick(node){
+			var doc = document;
+			doc.getElementById("dressBigImg").src = node.childNodes[0].src;
+		}
 		
 		function designerPicMouseOver(){
 			var doc = document;
@@ -80,6 +84,10 @@
 			var doc = document;
 			doc.getElementById("designerPicImgCell").style.backgroundColor="rgb(102,102,102)";
 			doc.getElementById("designerPicImg").style.opacity=0.5;
+		}
+		
+		function dressBigImgClick(){
+		
 		}
 	</SCRIPT>
 </head> 
@@ -104,7 +112,6 @@
 			</table>
 		</div>
 	<div>
-	
 	<div id="mainDressDetail" align="center">
 		<div id="topNavigation" align="left">
 			<input class="detailDressButton" type="button" value="아비가일 드레스" onmouseover="shopNameMouseOver(this)" onmouseout="shopNameMouseOut(this)">
@@ -115,9 +122,9 @@
 			<tr>
 				<td id="dressDetailCell1" valign="top">
 					<div class="dressPhotoDiv" align="center">
-						<img class="dressPhotoImg" src="images/dressbig.jpg">
+						<img id="dressBigImg" class="dressPhotoImg" src="images/dressbig.jpg" onclick="dressBigImgClick();">
 					</div>
-					<div id="dressPhotoListDiv" class="dressPhotoListDiv" onmouseover="dressListMouseOver()" onmouseout="dressListMouseOut()">									
+					<div id="dressPhotoListDiv" class="dressPhotoListDiv" onmouseover="dressListMouseOver();" onmouseout="dressListMouseOut()">									
 						<table id="dressPhotoListTable">
 						</table>
 					</div>
@@ -154,10 +161,55 @@
 						</tr>
 					</table>
 					<div id="otherDressDiv">
-												
+						<div class="otherDressText">
+							이 드레스와 주로 같이 입어 보는 다른 드레스들
+						</div>
+						<table id="otherDressTable">
+							<tr>
+								<td align="center">
+									<img class="otherDressImg" src="images/dresssmall0.jpg">
+								</td>
+								<td align="center">
+									<img class="otherDressImg" src="images/dresssmall2.jpg">
+								</td>
+								<td align="center">
+									<img class="otherDressImg" src="images/dresssmall3.jpg">
+								</td>
+								<td align="center">
+									<img class="otherDressImg" src="images/dresssmall5.jpg">
+								</td>
+								<td align="center">
+									<img class="otherDressImg" src="images/dresssmall6.jpg">
+								</td>
+							</tr>
+						</table>	
 					</div>
 					<div id="userCommentDiv">
-												
+						<div class="userCommentTitle">
+							이 드레스를 직접 입어 본 신부님들은
+						</div>
+						<table>
+							<tr>
+								<td>
+									김진웅 |  어머 너무 예뻐요!
+								</td>
+							</tr>					
+							<tr>
+								<td>
+									고해신 |  개못생김ㅋ
+								</td>
+							</tr>					
+							<tr>
+								<td>
+									방호남 |  그럭저럭
+								</td>
+							</tr>					
+							<tr>
+								<td>
+									주상돈 |  이런 스킨은 rp로 사야 제맛
+								</td>
+							</tr>					
+						</table>						
 					</div>
 					
 				</td>
