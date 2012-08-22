@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head> 
+		<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+		<title>Dress N Dress</title>
+
+		<link href="B2Cstyle.css" rel="stylesheet" type="text/css" />
+
+		<SCRIPT LANGUAGE="JavaScript"> 
+					
+			var  timerId=0 ;
+
+			function clearTimer() {
+				if (timerId!=0) {
+					clearTimeout(timerId);
+					timerId=0; 
+				}
+			}
+
+			function startTimer() {
+				clearTimer(); 
+				timerId=setTimeout('timerId=0;hideMenus()',100); 
+			}
+
+			function showMenu(menuNum) {
+				clearTimer(); 
+				hideMenus();
+				document.getElementById('filter'+menuNum).style.display="block"; 
+			}
+
+			function hideMenus() {
+
+				var doc = document;
+
+				for(var i=1;i<5;i++){
+					doc.getElementById('filter'+i).style.display="none";
+				}
+
+			}
+
+			function tableOn(){	 clearTimer();}
+			function tableOut(){ startTimer();}
+			
+			function overLayOn(num){
+				document.getElementById("overLay"+num).style.visibility="visible";
+			}
+			
+			function overLayOut(num){
+				document.getElementById("overLay"+num).style.visibility="hidden";
+			}
+
+		</SCRIPT>
+
+	</head> 
+
+		<body> 
+
+			<div>
+				<div id='topMenu'>
+					<table class='menuTable' align="center">
+						<tr>
+							<td class='logo'>Dress N Dress</td>
+							<td class='menuCategory'>
+								<ul>
+									<li><button class='a1' >by</button></li>
+									<li><a class='a2' href="#" onmouseover="showMenu(1)" onmouseout="startTimer()" >실루엣</a></li>
+									<li><a class='a2' href="#" onmouseover="showMenu(2)" onmouseout="startTimer()">색깔</a></li>
+									<li><button class='a1' >그리고</li>
+									<li><a class='a2' href="#" onmouseover="showMenu(3)" onmouseout="startTimer()">디테일</a></li>
+									<li><button class='a1' >또는</li>
+									<li><a class='a2' href="#" onmouseover="showMenu(4)" onmouseout="startTimer()">드레스 샵</a></li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div id='filter1' onmouseover='tableOn()' onmouseout='tableOut()'>
+					<table class='menuTable' align="left">
+						<tr>
+							<Td class='forPadding'></td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette1.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>프린세스 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette2.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>에이 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette3.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>드레이프 에이 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette4.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>볼 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette5.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>머메이드 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr><td><input class='silhouette' type='image' src='silhouette6.jpg'></td></tr>
+									<tr><td class='silhouetteInfo'>핏 앤 플레어 라인</td></tr>
+								</table>
+							</td>
+							<Td class='forPadding'></td>
+						</tr>
+					</table>
+				</div>
+
+				<div id='filter2' onmouseover='tableOn()' onmouseout='tableOut()'>
+					<table class='menuTable' align="center">
+						<tr>
+							<td class='filter2Cell'>
+								<table>
+									<tr><td class='dressColor1'></td></tr>
+									<tr><td class='colorInfo'>White</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor2'></td></tr>
+									<tr><td class='colorInfo'>Ivory</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor3'></td></tr>
+									<tr><td class='colorInfo'>Light Yellow</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor4'></td></tr>
+									<tr><td class='colorInfo'>Pink</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor5'></td></tr>
+									<tr><td class='colorInfo'>Light Cyan</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor6'></td></tr>
+									<tr><td class='colorInfo'>Navajo White</td></tr>
+								</table>
+							</td>
+							<td class='filter2Cell2'>
+								<table>
+									<tr><td class='dressColor7'></td></tr>
+									<tr><td class='colorInfo'>Light Purple</td></tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div id='filter3' onmouseover='tableOn()' onmouseout='tableOut()'>
+					<table class='menuTable' align="left">
+						<tr>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette1.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>프린세스 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette2.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>에이 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette3.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>드레이프 에이 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette4.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>볼 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette5.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>머메이드 라인</td></tr>
+								</table>
+							</td>
+							<td>
+								<table><tr><td><input class='silhouette' type='image' src='silhouette6.jpg'></td></tr>
+									   <tr><td class='silhouetteInfo'>핏 앤 플레어 라인</td></tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id='filter4'  onmouseover='tableOn()' onmouseout='tableOut()'>
+					<table class='menuTable' align="left">
+						<tr><td>아비가일</td></tr>
+						<tr><td>찰스박</td></tr>
+						<tr><td>크리스틴스포사</td></tr>
+						<tr><td>문경란웨딩</td></tr>
+					</table>
+				</div>
+
+				<div id='mainPart' align='center'>
+					<img class='leftImage' src='weddingPhoto2.png'>
+				</div>
+
+				<div id='recommendDress' align='center'>
+
+					<table class='menuTable' >
+						<tr>
+							<td class='todayChoice'><span>Today's Choice</span></td>
+							<td onmouseover='overLayOn(1)' onmouseout='overLayOut(1)'><div id='overLay1' class='overLayout'><table><tr><td class='td1'>드레스1</td><td class='td2'>아비가일</td></tr></table></div><input type='image' src='dress1.png' ></td>
+							<td onmouseover='overLayOn(2)' onmouseout='overLayOut(2)'><div id='overLay2' class='overLayout'><table><tr><td class='td1'>드레스2</td><td class='td2'>찰스박</td></tr></table></div><input type='image' src='dress2.png' ></td>
+							<td onmouseover='overLayOn(3)' onmouseout='overLayOut(3)'><div id='overLay3' class='overLayout'><table><tr><td class='td1'>드레스3</td><td class='td2'>크리스틴스..</td></tr></table></div><input type='image' src='dress3.png' ></td>
+							<td onmouseover='overLayOn(4)' onmouseout='overLayOut(4)'><div id='overLay4' class='overLayout'><table><tr><td class='td1'>드레스4</td><td class='td2'>문경란웨딩</td></tr></table></div><input type='image' src='dress4.png' ></td>
+						</tr>
+					</table>				
+					
+
+					<div class='menuTable2'></div>	
+				</div>
+
+				<div id='searchResult'>
+				</div>
+
+				<div id='ourShops'>
+					<table class='menuTable' align='center'>
+						<tr>
+							<td><strong><축제를 함께 준비하는 드레스 샵들></strong></td>
+						</tr>
+						<tr>
+							<td><a href='#'>아비가일</a><span></span><a href='#'>찰스박</a></td>
+						</tr>
+					</table>
+				</div>
+
+				<div id='footer'>
+					<table class='menuTable' align='center'><tr><td>
+						<table>
+							<tr><td><span>Rewires, Inc.</span></td></tr>
+							<tr><td>Rearrange the World in a Better Way.</td></tr>
+						</table>
+					</td>
+					<td class='rightTD'>
+						<table>
+							<tr>
+								<td>회사소개</td>
+								<td>연락처</td>
+								<td>피드백</td>
+								<td>개인보호정책</td>
+								<td>이용약관</td>
+							</tr>
+						</table>
+					</td></tr></table>
+				</div>
+
+			</div>
+
+		</body> 
+
+</html> 
