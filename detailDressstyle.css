@@ -1,0 +1,33 @@
+/* 샵 > 드레스 네비게이션 버튼
+--------------------------------------------------------------------------------------- */
+#topNavigation {font-size:20px; color:#000000; width:1200px; margin-bottom:10px;}
+.detailDressButton {font-size:20px; color:#000000; margin-top:65px;}
+
+
+/* 드레스 디테일 부분
+--------------------------------------------------------------------------------------- */
+#mainDressDetail {font-size:20px; color:#000000; }
+#dressDetailCell1 {width:650px; height:1000px; overflow:hidden;}
+#dressDetailCell1 .dressPhotoDiv {height:700px; border:2px solid black; border-bottom:none; }
+#dressDetailCell1 .dressPhotoImg {height:700px; cursor:pointer;}
+#dressDetailCell1 .dressPhotoListDiv {height:100px; width:650px; border:2px solid black; border-top:none; overflow:auto; overflow-y:hidden; overflow-x:hidden;}
+#dressPhotoListTable .dressListCell {height:100px; width:90px; border:1px solid black;}
+#dressPhotoListTable .dressListImg {height:100px;}
+
+.dressPhotoListScroll {width:50px; height:100px;padding:0px; margin:0px; position:relative; font-size:60px; background:rgba(255,255,255,0.5); cursor:pointer; margin-bottom:-100px; display:none;}
+#scrollLeftButton {top:-102px; left:2px;}
+#scrollRightButton {top:-102px; margin-left:546px;}
+
+
+#dressDetailCell2 { width:500px; height:1000px; padding-left:20px;}
+#designerDiv {height:200px;}
+#designerPicCell {height:200px; width:160px; border:1px solid black;}
+#designerPicImg {height:170px;}
+#designerName {height:30px; font-size:15px;border-top:1px solid black;}
+#designerDiv .designConceptDiv {height:200px; width:320px; margin-left:10px;}
+
+
+
+#archiveDiv {height:100px; background-color:#0000aa;}
+#otherDressDiv {height:150px; background-color:#cc00cc;}
+#userCommentDiv {height:200px; background-color:#aaaaaa;}
