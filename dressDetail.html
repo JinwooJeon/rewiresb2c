@@ -7,20 +7,20 @@
 	<link href="detailDressstyle.css" rel="stylesheet" type="text/css" />
 	<SCRIPT LANGUAGE="JavaScript"> 
 		function onCreate(){
+			setDressList(); // 왼쪽 하단 드레스 리스트
+			setOtherDressList(); //오른쪽 중간 다른 드레스 리스트
+			setImgSize(document.getElementById("designerPicImg"), 160,170); //디자이너 이미지 비율조정
+		}
+		
+		function setDressList(){
 			var doc = document;
 			var dressListText = "<tr>";
 				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
-				if(getRatio("images/dressbig.jpg")<0.9)
-					dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\" style=\"height:100px;\">";
-				else
-					dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\" style=\"width:90px;\">";
+					dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\">";
 				dressListText +="</td>";
 			for(var i=0; i<10; i++){
 				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
-				if(getRatio("images/dresssmall"+i+".jpg")<0.9)
-					dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\" style=\"height:100px;\">";
-				else
-					dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\" style=\"width:90px;\">";
+					dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\">";
 				
 					
 				dressListText +="</td>";
@@ -29,7 +29,25 @@
 			doc.getElementById("dressPhotoListTable").innerHTML = dressListText
 			doc.getElementById("dressPhotoListTable").style.width= 90*11+"px";
 			
+			for(var i=0; i< doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes.length; i++){
+				setImgSize(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[i].childNodes[0],90,100)
+			} 		
+		}
+		
+		function setOtherDressList(){
+			var doc = document;
+			var otherDressListText = "<tr>";
+			for(var i=2; i<7; i++){
+				otherDressListText +="<td align=\"center\">";
+					otherDressListText +="<img class=\"otherDressImg\" src=\"images/dresssmall"+i+".jpg\">";
+				otherDressListText +="</td>";
+			}
+			otherDressListText += "</tr>";
+			doc.getElementById("otherDressTable").innerHTML = otherDressListText
 			
+			for(var i=0; i< doc.getElementById("otherDressTable").childNodes[0].childNodes[0].childNodes.length; i++){
+				setImgSize(doc.getElementById("otherDressTable").childNodes[0].childNodes[0].childNodes[i].childNodes[0],90,100)
+			} 					
 		}
 	
 		function shopNameMouseOver(node){
@@ -82,27 +100,36 @@
 		}
 		function smallDressClick(node){
 			var doc = document;
-			var ratio = getRatio(node.childNodes[0].src);
+			var ratio = getImgRatio(node.childNodes[0].src);
 			
 			doc.getElementById("dressPhotoDiv").innerHTML = 
 			"<img id=\"dressBigImg\" class=\"dressPhotoImg\" src=\"images/dressbig.jpg\" style=\"cursor:pointer;\" onclick=\"dressBigImgClick();\" >"
 			doc.getElementById("dressBigImg").src = node.childNodes[0].src;
-			if(ratio > 650/700){
-				doc.getElementById("dressBigImg").width =650;
-			}
-			else{
-				doc.getElementById("dressBigImg").height =700;	
-			}			
+			setImgSize(doc.getElementById("dressBigImg"), 650, 700);
 			doc.getElementById("dressBigImg").style.marginTop = (700-doc.getElementById("dressBigImg").height)/2 + "px";
 		}
 		
-		function getRatio(source){
+		function getImgRatio(source){
 			var Imginfo = new Image();
 			Imginfo.src = source;
 			var width = Imginfo.width;
 			var height = Imginfo.height;		
 			
 			return width/height;
+		}
+		
+		function setImgSize(node, moldWidth, moldHeight){
+			var Imgratio = getImgRatio(node.src);
+			var moldratio = moldWidth/moldHeight;
+			if(Imgratio<moldratio){
+				node.style.width = moldHeight*Imgratio + "px";
+				node.style.height = moldHeight + "px";
+				
+			}
+			else{
+				node.style.width = moldWidth + "px";
+				node.style.height = moldWidth/Imgratio + "px";
+			}
 		}
 		
 		function designerPicMouseOver(){
@@ -221,23 +248,6 @@
 							이 드레스와 주로 같이 입어 보는 다른 드레스들
 						</div>
 						<table id="otherDressTable">
-							<tr>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall0.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall2.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall3.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall5.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall6.jpg">
-								</td>
-							</tr>
 						</table>	
 					</div>
 					<div id="userCommentDiv">

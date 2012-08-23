@@ -24,7 +24,7 @@
 #dressDetailCell2 { width:500px; height:800px; padding-left:10px;}
 #designerTable {height:200px; border-collapse:separate; border-spacing:10px 0px;}
 #designerTable .designerPicCell {height:200px; width:160px; border:2px solid black;}
-#designerPicImg {height:170px; width:160px; margin-bottom:-5px;}
+#designerPicImg {width:160px; height:170px; margin-bottom:-5px; background:#000000;}
 #designerName {height:30px; font-size:15px;border-top:2px solid black; padding-top:5px; margin-bottom:-5px;}
 #designerTable .designConceptCell {height:200px; width:320px; margin-left:10px; border:2px solid black;}
 
