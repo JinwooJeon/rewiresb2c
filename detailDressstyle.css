@@ -50,5 +50,8 @@
 /* 드레스 클릭
 --------------------------------------------------------------------------------------- */
 
-#photoFocusGrayDiv {position:absolute; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:101; display:none;}
-#focusedPhotoDiv {width:650px; height:700px; margin-top:0px; background-color:#ffffff;}
+#photoFocusGrayDiv {position:absolute; width:100%;height:100%; background:rgba(0,0,0,0.9); z-index:101; display:none;}
+#focusedPhotoDiv {width:810px; height:700px; margin-top:109px; margin-right:518px; background:rgba(255,255,255,0);}
+#focusedPhotoDiv .focusedPhotoButton {width:80px; height:700px; background:rgba(0,0,0,0); color:#ffffff; font-size:20px;}
+#focusedPhotoDiv ul {list-style:none; }
+#focusedPhotoDiv ul li {float:left; }

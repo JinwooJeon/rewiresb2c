@@ -6,6 +6,10 @@
 	<link href="B2Cstyle.css" rel="stylesheet" type="text/css" />
 	<link href="detailDressstyle.css" rel="stylesheet" type="text/css" />
 	<SCRIPT LANGUAGE="JavaScript"> 
+		
+		var numberOfPics =  11;
+		var currentPicIndex = 0;
+		
 		function onCreate(){
 			setDressList(); // 왼쪽 하단 드레스 리스트
 			setOtherDressList(); //오른쪽 중간 다른 드레스 리스트
@@ -99,6 +103,7 @@
 			node.childNodes[0].style.opacity=1;
 		}
 		function smallDressClick(node){
+			currentPicIndex = node.cellIndex;
 			var doc = document;
 			var ratio = getImgRatio(node.childNodes[0].src);
 			
@@ -106,7 +111,7 @@
 			"<img id=\"dressBigImg\" class=\"dressPhotoImg\" src=\"images/dressbig.jpg\" style=\"cursor:pointer;\" onclick=\"dressBigImgClick();\" >"
 			doc.getElementById("dressBigImg").src = node.childNodes[0].src;
 			setImgSize(doc.getElementById("dressBigImg"), 650, 700);
-			doc.getElementById("dressBigImg").style.marginTop = (700-doc.getElementById("dressBigImg").height)/2 + "px";
+			doc.getElementById("dressBigImg").style.marginTop = (700-doc.getElementById("dressBigImg").style.height.slice(0,-2))/2 + "px";
 		}
 		
 		function getImgRatio(source){
@@ -130,6 +135,7 @@
 				node.style.width = moldWidth + "px";
 				node.style.height = moldWidth/Imgratio + "px";
 			}
+			
 		}
 		
 		function designerPicMouseOver(){
@@ -145,12 +151,24 @@
 			var doc = document;
 			doc.getElementById("photoFocusGrayDiv").style.display = "inline";
 			doc.getElementById("focusedPhoto").src = doc.getElementById("dressBigImg").src;
-			doc.getElementById("focusedPhotoDiv").style.width = doc.getElementById("focusedPhoto").style.width;
+			setImgSize(doc.getElementById("focusedPhoto"), 650, 700);
+			doc.getElementById("focusedPhoto").style.marginTop = (700-doc.getElementById("focusedPhoto").style.height.slice(0,-2))/2 + "px";
 		}
 		
 		function closeFocusGrayDiv(){
 			var doc = document;
+			alert(doc.getElementById("focusedPhotoLeft").style.background);
+			if(doc.getElementById("focusedPhotoLeft").style.background!="rgba(0, 0, 0, 0)" || doc.getElementById("focusedPhotoRight").style.background!="rgba(0, 0, 0, 0)"){
+				doc.getElementById("focusedPhotoLeft").style.background ="rgba(0,0,0,0)";
+				doc.getElementById("focusedPhotoRight").style.background="rgba(0,0,0,0)";
+			}
+			else{
 			doc.getElementById("photoFocusGrayDiv").style.display = "none";			
+			}
+		}
+		
+		function focusedPhotoButtonClick(index,node){
+			node.style.background="rgba(0,0,0,0.5)";
 		}
 	</SCRIPT>
 </head> 
@@ -159,8 +177,18 @@
 <!--  드레스 클릭 Div  -->		
 
 	<div id="photoFocusGrayDiv" align="center" valign="center"  onclick="closeFocusGrayDiv()">
-		<div id="focusedPhotoDiv">
-			<img id="focusedPhoto">
+		<div id="focusedPhotoDiv" align="center">
+			<ul>
+				<li>
+					<input id="focusedPhotoLeft" class="focusedPhotoButton" type="button" value="<" onclick="focusedPhotoButtonClick(0,this);">
+				</li>
+				<li style="width:650px;">
+					<img id="focusedPhoto">
+				</li>
+				<li>
+					<input id="focusedPhotoRight" class="focusedPhotoButton" type="button" value=">" onclick="focusedPhotoButtonClick(1,this);">
+				</li>
+			</ul>
 		</div>
 	</div>
 	
