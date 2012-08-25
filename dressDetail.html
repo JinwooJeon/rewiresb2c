@@ -155,20 +155,29 @@
 			doc.getElementById("focusedPhoto").style.marginTop = (700-doc.getElementById("focusedPhoto").style.height.slice(0,-2))/2 + "px";
 		}
 		
+		var isFocusedButtonClick = 0;
+		
 		function closeFocusGrayDiv(){
 			var doc = document;
-			alert(doc.getElementById("focusedPhotoLeft").style.background);
-			if(doc.getElementById("focusedPhotoLeft").style.background!="rgba(0, 0, 0, 0)" || doc.getElementById("focusedPhotoRight").style.background!="rgba(0, 0, 0, 0)"){
-				doc.getElementById("focusedPhotoLeft").style.background ="rgba(0,0,0,0)";
-				doc.getElementById("focusedPhotoRight").style.background="rgba(0,0,0,0)";
+			if(isFocusedButtonClick==0){
+				doc.getElementById("photoFocusGrayDiv").style.display = "none";			
 			}
-			else{
-			doc.getElementById("photoFocusGrayDiv").style.display = "none";			
-			}
+			isFocusedButtonClick = 0;
 		}
 		
-		function focusedPhotoButtonClick(index,node){
-			node.style.background="rgba(0,0,0,0.5)";
+		function focusedPhotoButtonClick(index){
+			var doc = document;
+			isFocusedButtonClick = 1;
+			if(index == 0 && currentPicIndex > 0){
+				currentPicIndex--;
+				smallDressClick(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[currentPicIndex]);
+				dressBigImgClick();
+			}
+			else if(index == 1 &&currentPicIndex<numberOfPics-1){
+				currentPicIndex++;
+				smallDressClick(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[currentPicIndex]);
+				dressBigImgClick();
+			}
 		}
 	</SCRIPT>
 </head> 
@@ -180,13 +189,13 @@
 		<div id="focusedPhotoDiv" align="center">
 			<ul>
 				<li>
-					<input id="focusedPhotoLeft" class="focusedPhotoButton" type="button" value="<" onclick="focusedPhotoButtonClick(0,this);">
+					<input id="focusedPhotoLeft" class="focusedPhotoButton" type="button" value="<" onclick="focusedPhotoButtonClick(0);">
 				</li>
 				<li style="width:650px;">
 					<img id="focusedPhoto">
 				</li>
 				<li>
-					<input id="focusedPhotoRight" class="focusedPhotoButton" type="button" value=">" onclick="focusedPhotoButtonClick(1,this);">
+					<input id="focusedPhotoRight" class="focusedPhotoButton" type="button" value=">" onclick="focusedPhotoButtonClick(1);">
 				</li>
 			</ul>
 		</div>
