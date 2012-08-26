@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+	<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+	<title>dressndress</title>
+	<link href="basicstyle.css" rel="stylesheet" type="text/css" />
+	<link href="shopstyle.css" rel="stylesheet" type="text/css" />
+	<SCRIPT LANGUAGE="JavaScript"> 
+		function onCreate(){
+			var doc = document;
+			var dressListText0 ="";
+			var dressListText1 ="";
+			var dressListText2 ="";
+			for(var i=0; i<9; i++){
+				if(i%3==0){
+					dressListText0 += "<div onmouseover=\"dressListMouseOver(this)\" onmouseout=\"dressListMouseOut(this)\"><img class=\"dressListPics\" src=\"images/dressList"+i+".jpg\" ></div>"
+				}
+				else if(i%3==1){
+					dressListText1 += "<div onmouseover=\"dressListMouseOver(this)\"><img class=\"dressListPics\" src=\"images/dressList"+i+".jpg\"></div>"
+				}
+				else{
+					dressListText2 += "<div onmouseover=\"dressListMouseOver(this)\"><img class=\"dressListPics\" src=\"images/dressList"+i+".jpg\"></div>"
+				}
+			}
+			doc.getElementById("dressListDiv0").innerHTML =dressListText0;
+			doc.getElementById("dressListDiv1").innerHTML =dressListText1;
+			doc.getElementById("dressListDiv2").innerHTML =dressListText2;
+		}
+		
+		function scroll(){
+			if(window.pageYOffset>350){
+				document.getElementById("shopMenu").style.position = "fixed";
+				document.getElementById("shopMenu").style.top="55px";
+			} 
+			else{
+				document.getElementById("shopMenu").style.position = "relative";
+				document.getElementById("shopMenu").style.top="0px";
+			}
+		}
+		
+		function dressListMouseOver(node){ 
+			var grayDiv = document.createElement("div")
+			var grayHeight = 50;
+			grayDiv.setAttribute("style","position:relative; top:-"+grayHeight+"px; ; width:351px; height:"+grayHeight+"px; margin-bottom:-"+grayHeight+"px; background:rgba(0,0,0,0.4); ");
+			node.appendChild(grayDiv);  
+		}
+		
+		function dressListMouseOut(node){
+			node.removeChild(node.)
+		}
+	</SCRIPT>
+</head> 
+<body onload="onCreate();" onscroll="scroll();"> 
+
+	
+<!--  상단 메뉴  -->		
+
+	<div>
+		<div id='topMenu'>
+			<table class='menuTable' align="center">
+				<tr>
+					<td class='logo'>Dress N Dress</td>
+					<td class='menuCategory'>
+						<ul>
+							<li><button class='a1' >by</button></li>
+							<li><a class='a2' href="#" onmouseover="showMenu(1)" onmouseout="startTimer()" >실루엣</a></li>
+							<li><a class='a2' href="#" onmouseover="showMenu(2)" onmouseout="startTimer()">색깔</a></li>
+							<li><button class='a1' >그리고</li>
+							<li><a class='a2' href="#" onmouseover="showMenu(3)" onmouseout="startTimer()">디테일</a></li>
+							<li><button class='a1' >또는</li>
+							<li><a class='a2' href="#" onmouseover="showMenu(4)" onmouseout="startTimer()">드레스 샵</a></li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	
+<!--  컨셉사진  -->		
+	
+	<div id="conceptPhotoDiv" align="center">
+		<img src="images/conceptPhoto.jpg">
+	</div>
+	
+<!--  샵 메뉴  -->		
+
+	<div id="shopMenu" align="center">
+		<table>
+			<tr>
+				<td>
+					아비가일 드레스 검색 결과 by
+				</td>
+				<td class="shopMenuCriteria">
+					<span>
+						벨라인
+						<input type="button" value="×">
+					</span>
+					<span>
+						초록색
+						<input type="button" value="×">
+					</span>
+					<span>
+						초기화
+						<input type="button" value="×">
+					</span>
+				</td>
+				<td>
+				</td>
+				<td id="shopMenuRight" align="right">
+					<span id="qnaSpan" class="menuR">QnA</span>
+					<span class="menuR">Contact</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="dressListDiv" align="center">
+		<div id="dressListInnerDiv">
+			<table>
+				<tr>
+					<td id="dressListDiv0" valign="top" align="center">
+					</td>
+					<td id="dressListDiv1" valign="top" align="center">
+					</td>
+					<td id="dressListDiv2"  valign="top" align="center">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body> 
+</html> 
