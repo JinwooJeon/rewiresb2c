@@ -8,8 +8,85 @@
 
 		<SCRIPT LANGUAGE="JavaScript"> 
 					
-//////
-			//-------------------------------------- filter mouseon, out 할 때 나오고 들어가게 하기
+			// total dress List & buffer1 & buffer2 for efficient search.
+			var wholeDress = new Array(100); // receive from server
+			var wholeDressNum = 100; // receive from server
+
+			for(var i=0; i<wholeDressNum; i++){
+				wholeDress[i] = new Array(7);
+			}
+
+			var sFilter = 0;
+			var sFilterType = 0;
+			
+			var buffer = new Array(100);
+			var bufferLength = 0;
+			for(var i=0; i<100; i++){
+				buffer[i] = new Array(7);
+			}
+			
+			var curDressList = new Array(100);
+			for(var i=0; i<100; i++){
+				curDressList[i] = new Array(7);
+			}
+
+			wholeDress[0][0] = "슈퍼드레스";
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d1.jpg";
+			wholeDress[0][3] = "2";
+			wholeDress[0][4] = "2";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "0101000";
+
+			wholeDress[0][0] = "슈퍼드레스";
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d2.jpg";
+			wholeDress[0][3] = "1";
+			wholeDress[0][4] = "3";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "0100001";
+
+			wholeDress[0][0] = "슈퍼드레스";
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d3.jpg";
+			wholeDress[0][3] = "1";
+			wholeDress[0][4] = "5";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "1100000";
+			wholeDress[0][0] = "슈퍼드레스";
+
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d4.jpg";
+			wholeDress[0][3] = "5";
+			wholeDress[0][4] = "4";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "0101100";
+			wholeDress[0][0] = "슈퍼드레스";
+
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d5.jpg";
+			wholeDress[0][3] = "6";
+			wholeDress[0][4] = "3";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "0000111";
+			wholeDress[0][0] = "슈퍼드레스";
+
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d6.jpg";
+			wholeDress[0][3] = "2";
+			wholeDress[0][4] = "4";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "1100011";
+			wholeDress[0][0] = "슈퍼드레스";
+
+			wholeDress[0][1] = "디자이너최";
+			wholeDress[0][2] = "images/test/d7.jpg";
+			wholeDress[0][3] = "5";
+			wholeDress[0][4] = "1";
+			wholeDress[0][5] = "Avigail";
+			wholeDress[0][6] = "1010000";
+
+			//-------------------------------------------------------------------------------- mouseOn, out effects of filters
 			var  timerId=0 ;
 
 			function clearTimer() {
@@ -33,68 +110,299 @@
 			function hideMenus() {
 
 				var doc = document;
-
 				for(var i=1;i<5;i++){
 					doc.getElementById('filter'+i).style.display="none";
 				}
-
 			}
 
 			function tableOn(){	 clearTimer();}
 			function tableOut(){ startTimer();}
-			
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			//-------------------------------------- Today's Choice mouseon, out 할 때 나오는  드레스 설명 Layer
+
+			//-------------------------------------- semi-transparent layer on the images of Today's Choice 
 			function overLayOn(num){ document.getElementById("overLay"+num).style.visibility="visible";}			
 			function overLayOut(num){ document.getElementById("overLay"+num).style.visibility="hidden";}
 
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 			
-			// Filter 선택
+			//-------------------------------------- semi-transparent layer on the images of Filter Categories 
+			function filterOverLayOn(type,num){ 
+				if(type=="silhouette")		document.getElementById("silhouetteOver"+num).style.visibility="visible";
+				else if(type=="color")		document.getElementById("colorOver"+num).style.visibility="visible";
+				else if(type=="detail")		document.getElementById("detailOver"+num).style.visibility="visible";
+			}			
+			
+			function filterOverLayOut(type,num){ 
+				if(type=="silhouette")		document.getElementById("silhouetteOver"+num).style.visibility="hidden";
+				else if(type=="color")		document.getElementById("colorOver"+num).style.visibility="hidden";
+				else if(type=="detail")		document.getElementById("detailOver"+num).style.visibility="hidden";
+			}
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			var filters = new Array(10); // 필터 선택은 일단 최대 10개라고 가정. 
-			var firstFilter = 0;
 
+			// Basic structure for showing dresses.
+			function showWholeDress(){
+				
+				var cardNumber = 23;
+				var dressNum = 1;
+				
+				while(cardNumber>0){
+					for(var i=0;i<3;i++){
+						if(cardNumber>0){
+
+							var curTable = document.getElementById("dressPosition"+i);
+							var row = curTable.insertRow(0);
+							var cell = row.insertCell(0);
+							cell.className="eachDressCell";
+							var tableContents = "<img src='images/test/d"+dressNum+".jpg' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+dressNum+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>드레스1</td><td class='td2'>아비가일</td></tr></table></div>";
+
+							cell.innerHTML = tableContents;
+							dressNum++;
+							cardNumber--;
+						} // if
+					}// for 	
+				}// while
+			}
+
+			// mouse0n & mouseOut effects of semi-transparent layers on the images of the dress search result.
+			function changeClass(obj, direction){	
+				
+				if (direction ==1 ) obj.nextSibling.className = "overLayoutHover";	 
+				else if (direction == 2) obj.nextSibling.className = "overLayout";
+				else if (direction== -1) obj.className = "overLayoutHover";
+				else if (direction== -2) obj.className = "overLayout";
+			}
+			
+
+
+
+			//--------------------------------------------------------------------------------- click Filter & Make Dress List --------------------------------------------------------------------------------------- 
+
+
+			// assume that maximum filter number is equal to 10. filters[0] is for silhouette, filters[1] is for color, filters[2] is for shops, filters[3]~filters[9] is for details.  
+			var filters = new Array(10); 
 			for(var i=0;i<10;i++){
 				filters[i] = 0;
 			}
 
+			// filterName: silhouette, color, detail, shop 
+			// filterType: specific category names of each filters 
+			// imageOrColor: 실루엣,색, 디테일의 경우 해당 선택한 것의 작은 이미지 혹은 rgb 값이 넘어옴. 
+			// filterNum은 각 필터의 몇번째 세부사항인지 숫자로 넘어옴.	
+			function setFilter(filterName, filterType, imageOrColor, filterNum){   
 
-			function selectFilter(filterName, num){
+				doc = document;
+				doc.getElementById("filterInfo").innerText ="드레스 검색 결과 By";
+				
 
-				if(filterName == "silhouette"){
-
-				}else if(filterName == "color"){
-
-				}else if(filterName == "detail"){
-					
-				}else if(filterName == "shop"){
-
-				}
-
-				if(num==1){	 // 실루엣 필터
-					
-					while(true){
+				if(filterName != "detail"){
 						
+					if(doc.getElementById(filterName)){	// click another type of existing filter
+						var filterButton = doc.getElementById(filterName+filterNum);
+						//filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};
+						
+					}else{		
+						var filterButton = doc.createElement("input");
+						//filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};			
+						doc.getElementById("curFilter").appendChild(filterButton);
 					}
 
-				}else if(num==2){  // 색깔 필터
+					filterButton.setAttribute("type", "button");
+					filterButton.setAttribute("id", filterName+filterNum);
+					filterButton.setAttribute("value", filterType);
+					filterButton.setAttribute("class", "filterList");
 
-				}else if(num==3){  // 디테일 필터
+					if(filterName == "silhouette")			filters[0] = filterNum;
+					else if(filterName == "color")			filters[1] = filterNum;
+					else if(filterName == "shop")			filters[2] = filterNum;					
 
-				}else if(num==4){  // 드레스 샵 필터
+				}else{	//detail Filter
+						
+					if(!doc.getElementById(filterName+filterNum)){	
+
+						var filterButton = doc.createElement("input");
+						filterButton.setAttribute("id", filterName+filterNum);
+						filterButton.setAttribute("type", "button");
+						filterButton.setAttribute("class", "filterList");
+						filterButton.setAttribute("value", filterType);
+						//filterButton.onclick=function(){ deleteFilter(filterName, detailNum)};			
+
+						doc.getElementById("curFilter").appendChild(filterButton);
+						
+						filters[filterNum+2] = 1;	
+					}
+				}				
+
+				if(sFilter == filterName){					
+					if(sFilterType == filterType){
+						hideMenus();
+					}else{
+						sFilterType = filterType;
+						makeBuffer(sFilter, sFilterType); // buffer를 만들고 그 것으로 리스트 만들기
+					}
 
 				}else{
-					alert("filter Number Error");
-				}
-				
-				
-				//sendFilter(filterName, num);여기서 호남이형이 만든 함수 호출 
+
+					if(sFilter == 0){
+						if(filterName != "detail"){
+							sFilter = filterName;
+							sFilterType = filterType;
+							makeBuffer(sFilter, sFilterType); // buffer를 만들고 그것으로 리스트 만들기
+
+						}else{
+							makeDress(2); // 전체 드레스로 리스트 만들기
+						}
+					}else{
+						makeDress(1); // 이미 있는 buffer로 리스트 만들기
+					}
+				}			
 			}
 
+			function makeBuffer(sFilter, sFilterType){
+				
+				var filterPosition;
+				var dressTotalNum = wholeDressNum;	// 전역 변수를 지역 변수로 복사
+				var localWholeDress = wholeDress;	// 전역 배열을 지역 배열로 복사
+
+				if(sFilter == "silhouette")		filterPosition = 3;
+				else if(sFilter == "color")		filterPosition = 4;
+				else if(sFilter == "shop")		filterPosition = 5;
+				
+				var imsiBuffer = new Array(100);
+				for (var i=0; i<100; i++){
+					imsiBuffer[i] = new Array(7);
+				}
+
+				var j=0;
+				for(var i =0; i<dressTotalNum; i++){
+					if(localWholeDress[i][filterPosition] == sFilterType){
+						imsiBuffer[j] = localWholeDress[i];
+						j++;
+					}
+				}
+
+				buffer = imsiBuffer;
+				bufferLength = j;
+				makeDress(0, imsiBuffer);
+			}
 			
+			function makeDress(determinant, imsiBuffer){
+				
+				var doc = document;
+				var localDressList;
+				var localDressNum; 
+				var compareFilter;
+
+				if(determinant ==0)	{
+					localDressList = imsiBuffer;
+					localDressNum = bufferLength;
+				}else if(determinant == 1){
+					localDressList = buffer;
+					localDressNum = bufferLength;
+				}else if(determinant == 2){
+					localDressList = wholeDress;
+					localDressNum = wholeDressNum;
+				}
+
+				// 현재 Dress List 초기화
+				var curTable1 = doc.getElementById("dressPosition"+0);
+				var curTable2 = doc.getElementById("dressPosition"+1);
+				var curTable3 = doc.getElementById("dressPosition"+2);
+
+				while(curTable1.firstChild){	curTable1.removeChild(curTable1.firstChild);	}
+				while(curTable2.firstChild){	curTable2.removeChild(curTable2.firstChild);	}
+				while(curTable3.firstChild){	curTable3.removeChild(curTable3.firstChild);	}
+
+				var dFiltering = new Array();
+				for (var k=0; k<10 ;k++){
+					if(filters[k+3]==1)		dFiltering.push(""+k+"");
+				}
+				var dFilteringLength = dFiltering.length;
 
 
-			// 현재 스크롤 위치를 파악함. 
+				var z=0;
+				for(var i=0; i<localDressNum; i++){
+
+					var j=0;
+
+					whileLoop:
+					while(true){
+						if(j<=2){	// 3개의 sFilter 검사
+							if(filters[j] == 0){
+							
+							}else {
+								if(filters[j] == localDressList[i][j+3]){}
+								else{	break whileLoop;}	// 부적합								
+							}
+
+						}else if(j>2){	// dFilter 검사
+							if(dFilteringLength==0){
+								curDressList[z] = localDressList[i];
+								z++;
+								break whileLoop; // 적합
+							}else{
+								for(var t =0; t<dFilteringLength; t++){
+									if(localDressList[i][6].charAt(dFiltering[t])==1){
+										curDressList[z] = localDressList[i];
+										z++;
+										break whileLoop;// 적합
+									}
+								}
+								break whileLoop;	// 부적합
+							}
+						}
+						j++;
+					}
+				}
+			}
+
+			function showMoreDress(){
+				
+			}
+			
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			//--------------------------------------------------------------------------------- delete Filter & Make Dress List --------------------------------------------------------------------------------------- 
+
+			function deleteFilter(filterName, filterNum){
+
+				if(doc.getElementById(filterName+filterNum)){
+				
+					var child = doc.getElementById(filterName+filterNum);
+					var parent = child.parentNode;
+					parent.removeChild(child);
+
+					if(filterName == "silhouette"){
+						filters[0] = 0;
+						deleteStandardFilter(filterName);
+					}else if(filterName == "color"){
+						filters[1] = 0;
+						deleteStandardFilter(filterName);
+					}else if(filterName == "shop"){
+						filters[2] = 0;
+						deleteStandardFilter(filterName);
+					}else if (filterName == "detail"){
+						filters[detailNum+2] = 0;
+					}
+				}
+				makeDressList(standardFilterNum);
+			}
+
+			function deleteStandardFilter(filterName){
+
+				if(filterName == standardFilter1 && standardFilter2 !=0){	// 전체에서 Buffer1 Array를 다시 생성해야 함.
+					standardFilter1 = standardFilter2;
+					standardFilter2 = 0;
+				}else if(filterName == standardFilter2){		// Buffer1 Array를 그대로 사용 가능.
+					standardFilter2 = 0;
+				}
+			}
+          
+			 
+
+			/* 현재 스크롤 위치를 파악함. 
 			var getNowScroll = function(){
 				var de = document.documentElement;
 				var b = document.body;
@@ -110,13 +418,35 @@
 				var nowScroll = getNowScroll();
 				alert(nowScroll.X + "," + nowScroll.Y);
 			}
+			*/
 
+			function addEventHandler(obj, eventName, handler){
+				
+				if(document.attachEvent){
+					obj.attachEvent("on"+eventName, handler);
+				}else if(document.addEventListener){
+					obj.addEventListener(eventName, handler, false);
+				}
+			}
 
+			function cur(){
+				alert(filters[0]+","+filters[1]+","+filters[2]+","+filters[3]+","+filters[4]+","+filters[5]+","+filters[6]+","+filters[7]+","+filters[8]+","+filters[9]);
+			}
+
+			function test(){
+				var aa= "0010110";
+				alert(aa.charAt(2));
+				var bb =1;
+				var cc ="1";
+				if(bb==cc){
+					alert("Same");
+				}
+			}
 		</SCRIPT>
 
 	</head> 
 
-		<body> 
+		<body onload="showWholeDress();"> 
 
 			<div>
 				<div id='topMenu'>
@@ -126,14 +456,25 @@
 							<td class='menuCategory'>
 								<ul>
 									<li><button class='a1' >by</button></li>
-									<li><a class='a2' href="#" onmouseover="showMenu(1)" onmouseout="startTimer()" >실루엣</a></li>
-									<li><a class='a2' href="#" onmouseover="showMenu(2)" onmouseout="startTimer()">색깔</a></li>
-									<li><button class='a1' >그리고</li>
-									<li><a class='a2' href="#" onmouseover="showMenu(3)" onmouseout="startTimer()">디테일</a></li>
-									<li><button class='a1' >또는</li>
-									<li><a class='a2' href="#" onmouseover="showMenu(4)" onmouseout="startTimer()">드레스 샵</a></li>
+									<li><a class='a2' href="#" onmouseover="showMenu(1)" onmouseout="startTimer()" >Silhouette </a></li>
+									<li><a class='a2' href="#" onmouseover="showMenu(2)" onmouseout="startTimer()">Color </a></li>
+									<li><a class='a2' href="#" onmouseover="showMenu(3)" onmouseout="startTimer()">Details </a></li>
+									<li><button class='a1' >or</li>
+									<li><a class='a2' href="#" onmouseover="showMenu(4)" onmouseout="startTimer()">Dress Shops</a></li>
+									<li><span class='padding'></span></li>
+									<li><a class='a2' href="#"><span onclick='cur();'>방문 예약하기</span></a></li>
+									<li><a class='a2' href="#"><span onclick='test();'>입어본 드레스</span></a></li>
+
 								</ul>
 							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div id='topMenu2'>
+					<table class='menuTable' align="center">
+						<tr>
+							<td id='filterInfo'>전체 드레스</td><td id='curFilter'></td></td>
 						</tr>
 					</table>
 				</div>
@@ -141,90 +482,90 @@
 				<div id='filter1' onmouseover='tableOn()' onmouseout='tableOut()'>
 					<table class='menuTable' align="left">
 						<tr>
-							<Td class='forPadding'></td>
+							<td class='forPadding'></td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette1.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","프린세스 라인",1,1)' onmouseover='filterOverLayOn("silhouette",1)' onmouseout='filterOverLayOut("silhouette",1)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette1.jpg'><div id='silhouetteOver1' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>프린세스 라인</td></tr>
 								</table>
 							</td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette2.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","에이 라인",1,2)' onmouseover='filterOverLayOn("silhouette",2)' onmouseout='filterOverLayOut("silhouette",2)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette2.jpg'><div id='silhouetteOver2' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>에이 라인</td></tr>
 								</table>
 							</td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette3.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","드레이프 에이 라인",1,3)' onmouseover='filterOverLayOn("silhouette",3)' onmouseout='filterOverLayOut("silhouette",3)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette3.jpg'><div id='silhouetteOver3' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>드레이프 에이 라인</td></tr>
 								</table>
 							</td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette4.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","볼 라인",1,4)' onmouseover='filterOverLayOn("silhouette",4)' onmouseout='filterOverLayOut("silhouette",4)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette4.jpg'><div id='silhouetteOver4' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>볼 라인</td></tr>
 								</table>
 							</td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette5.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","머메이드 라인",1,5)' onmouseover='filterOverLayOn("silhouette",5)' onmouseout='filterOverLayOut("silhouette",5)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette5.jpg'><div id='silhouetteOver5' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>머메이드 라인</td></tr>
 								</table>
 							</td>
 							<td>
-								<table>
-									<tr><td><input class='silhouette' type='image' src='silhouette6.jpg'></td></tr>
+								<table onclick='setFilter("silhouette","핏 앤 플레어 라인",1,6)' onmouseover='filterOverLayOn("silhouette",6)' onmouseout='filterOverLayOut("silhouette",6)'>
+									<tr><td><input class='silhouette' type='image' src='silhouette6.jpg'><div id='silhouetteOver6' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='silhouetteInfo'>핏 앤 플레어 라인</td></tr>
 								</table>
 							</td>
 							<Td class='forPadding'></td>
 						</tr>
-					</table>
+					</table>				
 				</div>
 
 				<div id='filter2' onmouseover='tableOn()' onmouseout='tableOut()'>
 					<table class='menuTable' align="center">
 						<tr>
 							<td class='filter2Cell'>
-								<table>
-									<tr><td class='dressColor1'></td></tr>
+								<table onclick='setFilter("color","White","#fff",1)' onmouseover='filterOverLayOn("color",1)' onmouseout='filterOverLayOut("color",1)'>
+									<tr><td class='dressColor1' ><div id='colorOver1' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>White</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor2'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Ivory","#fafad2",2)' onmouseover='filterOverLayOn("color",2)' onmouseout='filterOverLayOut("color",2)'>
+									<tr><td class='dressColor2'><div id='colorOver2' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Ivory</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor3'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Light Yellow","#fffa79",3)' onmouseover='filterOverLayOn("color", 3)' onmouseout='filterOverLayOut("color",3)'>
+									<tr><td class='dressColor3'><div id='colorOver3' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Light Yellow</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor4'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Pink","#ffe4e1",4)' onmouseover='filterOverLayOn("color",4)' onmouseout='filterOverLayOut("color",4)'>
+									<tr><td class='dressColor4'><div id='colorOver4' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Pink</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor5'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Light Cyan","#e0ffff",5)' onmouseover='filterOverLayOn("color",5)' onmouseout='filterOverLayOut("color",5)'>
+									<tr><td class='dressColor5'><div id='colorOver5' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Light Cyan</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor6'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Navajo White","#ffdead",6)' onmouseover='filterOverLayOn("color",6)' onmouseout='filterOverLayOut("color",6)'>
+									<tr><td class='dressColor6'><div id='colorOver6' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Navajo White</td></tr>
 								</table>
 							</td>
-							<td class='filter2Cell2'>
-								<table>
-									<tr><td class='dressColor7'></td></tr>
+							<td class='filter2Cell'>
+								<table onclick='setFilter("color","Light Purple","#ef8fef",7)' onmouseover='filterOverLayOn("color",7)' onmouseout='filterOverLayOut("color",7)'>
+									<tr><td class='dressColor7'><div id='colorOver7' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
 									<tr><td class='colorInfo'>Light Purple</td></tr>
 								</table>
 							</td>
@@ -236,33 +577,39 @@
 					<table class='menuTable' align="left">
 						<tr>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette1.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>프린세스 라인</td></tr>
+								<table onclick='setFilter("detail","목걸이",1,1)' onmouseover='filterOverLayOn("detail",1)' onmouseout='filterOverLayOut("detail",1)'>
+									<tr><td><input class='detail' type='image' src='detail1.jpg'><div id='detailOver1' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>목걸이</td></tr>
 								</table>
 							</td>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette2.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>에이 라인</td></tr>
+								<table onclick='setFilter("detail","가슴 장식",1,2)' onmouseover='filterOverLayOn("detail",2)' onmouseout='filterOverLayOut("detail",2)'>
+									<tr><td><input class='detail' type='image' src='detail2.jpg'><div id='detailOver2' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>가슴 장식</td></tr>
 								</table>
 							</td>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette3.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>드레이프 에이 라인</td></tr>
+								<table onclick='setFilter("detail","리본 장식",1,3)' onmouseover='filterOverLayOn("detail",3)' onmouseout='filterOverLayOut("detail",3)'>
+									<tr><td><input class='detail' type='image' src='detail3.jpg'><div id='detailOver3' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>리본 장식</td></tr>
 								</table>
 							</td>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette4.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>볼 라인</td></tr>
+								<table onclick='setFilter("detail","베일",1,4)' onmouseover='filterOverLayOn("detail",4)' onmouseout='filterOverLayOut("detail",4)'>
+									<tr><td><input class='detail' type='image' src='detail4.jpg'><div id='detailOver4' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>베일</td></tr>
 								</table>
 							</td>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette5.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>머메이드 라인</td></tr>
+								<table onclick='setFilter("detail","코샤쥬",1,5)' onmouseover='filterOverLayOn("detail",5)' onmouseout='filterOverLayOut("detail",5)'>
+									<tr><td><input class='detail' type='image' src='detail5.jpg'><div id='detailOver5' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>코샤쥬</td></tr>
 								</table>
 							</td>
 							<td>
-								<table><tr><td><input class='silhouette' type='image' src='silhouette6.jpg'></td></tr>
-									   <tr><td class='silhouetteInfo'>핏 앤 플레어 라인</td></tr>
+								<table onclick='setFilter("detail","쥬얼리 브로치",1,6)' onmouseover='filterOverLayOn("detail",6)' onmouseout='filterOverLayOut("detail",6)'>
+									<tr><td><input class='detail' type='image' src='detail6.jpg'><div id='detailOver6' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
+									<tr><td class='detailInfo'>쥬얼리 브로치</td></tr>
 								</table>
 							</td>
 						</tr>
@@ -279,9 +626,16 @@
 				</div>
 
 				<div id='mainPart' align='center'>
-					<img class='leftImage' src='weddingPhoto2.png'>
+					<img class='leftImage' src='weddingPhoto2.png' >
+					<table class='dressMainTable' align='center'>
+						<tr>
+							<td vAlign="top"><table id="dressPosition0"> </table></td>
+							<td vAlign="top"><table id="dressPosition1"> </table></td>
+							<td vAlign="top"><table id="dressPosition2"> </table></td>
+						</tr>
+					</table>
 				</div>
-
+	
 				<div id='recommendDress' align='center'>
 
 					<table class='menuTable' >

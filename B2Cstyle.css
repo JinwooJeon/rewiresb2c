@@ -36,29 +36,38 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
 
 /* Main - topMenu 
 --------------------------------------------------------------------------------------- */
-#topMenu {position:fixed; z-index:100; background-color: #171b19; height:50px; width:100%; padding-top:5px; }
-#topMenu .menuTable {width:900px;}
-#topMenu .logo {color:#fff; font-size:27px; width:200px;  padding:0 10px 5px 10px;}
+#topMenu {position:fixed; top:0; z-index:100; background-color: #171b19; height:40px; width:100%; padding-bottom:5px; }
+#topMenu .menuTable {width:1100px;}
+#topMenu .logo {letter-spacing:-2px; color:#fff; font-weight:bold; font-size:27px; width:200px;  padding:0 10px 2px 10px;}
 #topMenu .menuCategory {padding:10px;}
 #topMenu ul { list-style:none;  }
 #topMenu ul li {float:left;}
 #topMenu ul li .a1 { padding:2px 0 5px 0; margin-left:5px; background-color:#171b19; border:none; width:50px; color:#fff; font:bold 15px tahoma; text-align:center;}
-#topMenu ul li .a2 { padding:10px 0 16px 0; margin: 3px; width:15px; color:#fff; font:bold 20px tahoma; text-align:center;	text-decoration:none; cursor:pointer}
+#topMenu ul li .a2 { padding:10px 5px 16px 5px; margin: 3px; width:15px; color:#fff; font:bold 20px tahoma; text-align:center;	text-decoration:none; cursor:pointer;}
 #topMenu ul li .a2:hover, ul li .a2:focus {color:#fff; #87ceeb; color:#87ceeb;}
+#topMenu ul li .padding { padding-left:60px;}
+#topMenu ul li span {font-size:18px; letter-spacing:-1px;}
 
+#topMenu2 {position:fixed; z-index:100; top:40px; background-color: #adf; height:40px; width:100%; padding-top:5px; }
+#topMenu2 .menuTable {width:1100px;}
+#topMenu2 .filterList {cursor:pointer;}
+#topMenu2 td {font-size:18px; font-weight:bold; color:#000; padding:5px 0 0 0;}
+#topMenu2 input {font-size:18px; font-weight:bold; color:#000; padding:5px 10px 5px 10px; margin-right:20px;}
+#topMenu2 #filterInfo {width:200px;}
 
 /* Main - filters 
 --------------------------------------------------------------------------------------- */
-#filter1 {display:none; position:fixed; z-index:100; background-color:#fff;  text-align:center; top:55px; width:100%;}
+#filter1 {display:none; position:fixed; z-index:100; background-color:#fff;  text-align:center; top:40px; width:100%;}
 #filter1 .menuTable {border-bottom:1px solid #555; padding:10px; width:100%;}
-#filter1 .forPadding {width:1000px;}
+#filter1 .forPadding {width:1100px;}
 #filter1 .silhouette{margin:10px 10px 0 10px; width:120px; border: 1px solid #bbb;}
 #filter1 .silhouetteInfo {font-weight:bold; padding:5px 0 5px 0 ; font-size:15px;}
+#filter1 .overLayout {cursor:pointer; position:relative; visibility:hidden; top:-138px; margin-bottom:-135px; left:10px; z-index:110; width:132px; height:138px; background-color:#000; color:#fff; opacity:0.5; }
+#filter1 td .td1{text-align:left; padding:15px 0 0 5px; }
 
-#filter2 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:55px; left:50%; margin-left:-450px;}
+#filter2 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:40px; left:50%; margin-left:-550px;}
 #filter2 .menuTable {border:1px solid #555; padding:10px; width:900px;}
-#filter2 .filter2Cell {padding:0px 10px 0 10px;}
-#filter2 .filter2Cell2 {padding:10px 10px 10px 0;}
+#filter2 .filter2Cell {padding:10px 10px 10px 10px; cursor:pointer;}
 #filter2 .dressColor1 {border:1px solid #555; background-Color:#fff; width:115px; height:120px;}
 #filter2 .dressColor2 {border:1px solid #555; background-Color:#fafad2; width:115px; height:120px;}
 #filter2 .dressColor3 {border:1px solid #555; background-Color:#fffa79; width:115px; height:120px;}
@@ -67,26 +76,36 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
 #filter2 .dressColor6 {border:1px solid #555; background-Color:#ffdead; width:115px; height:120px;}
 #filter2 .dressColor7 {border:1px solid #555; background-Color:#ef8fef; width:115px; height:120px;}
 #filter2 .colorInfo {font-weight:bold; padding:5px 0 0 0 ; font-size:15px;}
+#filter2 .overLayout {cursor:pointer; position:relative; visibility:hidden; top:-60px; margin-bottom:-135px; z-index:110; width:134px; height:120px; background-color:#000; color:#fff; opacity:0.5; }
 
-#filter3 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:55px; left:50%; margin-left:-450px;}
+#filter3 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:40px; left:50%; margin-left:-450px;}
 #filter3 .menuTable {border:1px solid #555; padding:10px; width:900px;}
-#filter3 .silhouette{margin:10px 10px 0 10px; width:120px; border: 1px solid #bbb;}
-#filter3 .silhouetteInfo {font-weight:bold; padding:5px 0 5px 0 ; font-size:15px;}
+#filter3 .detail{margin:10px 10px 0 10px; width:120px; border: 1px solid #bbb;}
+#filter3 .detailInfo {font-weight:bold; padding:5px 0 5px 0 ; font-size:15px;}
+#filter3 td .td1{text-align:left; padding:15px 0 0 5px; }
+#filter3 .overLayout {cursor:pointer; position:relative; visibility:hidden; top:-138px; margin-bottom:-135px; left:10px; z-index:110; width:132px; height:138px; background-color:#000; color:#fff; opacity:0.5; }
 
-#filter4 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:55px; left:50%; margin-left:107px; }
-#filter4 .menuTable {border:1px solid #555; padding:10px; width:150px;}
-#filter4 .menuTable td{font-size:15px; line-height:27px;}
+#filter4 {display:none; position:fixed; z-index:100; background-color:#fff; text-align:center; top:40px; left:50%; margin-left:57px; }
+#filter4 .menuTable {border:1px solid #555; padding:10px; width:150px; }
+#filter4 .menuTable td{font-weight:bold; font-size:15px; line-height:27px; cursor:pointer;}
+#filter4 .menuTable td:hover, .menuTable td:focus {background-color:#aaa; color:#000;}
 
 /* Main - mainPart & recommendDress & searchResult 
 --------------------------------------------------------------------------------------- */
-#mainPart .leftImage {padding-top:55px; width:1200px; }
+#mainPart .leftImage {display:none; padding-top:55px; width:1100px; }
+#mainPart .dressMainTable {left:50%; margin-top:100px; width:1100px; }
+#mainPart .eachDressCell {text-align:center;width:340px;}
+#mainPart img{width:340px; cursor:pointer;}
+#mainPart .td1{width:170px; text-align:left; padding:20px 0 0 5px;}
+#mainPart .td2{width:170px; text-align:right; padding:20px 5px 0 0;}
+#mainPart .overLayout {position:relative; top:-60px; z-index:90; margin-bottom:-45px; width:340px; height:60px; background-color:#000;  color:#fff; opacity:0.7; font-size:18px; font-weight:bold; cursor:pointer;}
+#mainPart .overLayoutHover {position:relative; top:-60px; z-index:90; margin-bottom:-45px; width:340px; height:60px; color:#000; background-color:#fab; opacity:1; font-size:18px; font-weight:bold; cursor:pointer;}
 
-#recommendDress {}
 #recommendDress span {font-size:30px; color:#fff;}
-#recommendDress .todayChoice {padding-bottom:100px; }
-#recommendDress .menuTable {position:absolute; left:50%; top:520px; margin-left:-505px; z-index:90; padding:10px; width:1100px;}
-#recommendDress .menuTable2 {position:absolute; left:50%; top:554px; margin-left:-600px; z-index:80; width:1200px; height:294px; background-color:#000; opacity:0.5;}
-#recommendDress .overLayout {visibility:hidden; position:relative; top:262px; z-index:110; width:212px; height:50px; background-color:#000; opacity:0.7; }
+#recommendDress .todayChoice {padding-bottom:100px; text-align:center;}
+#recommendDress .menuTable {display:none;  position:absolute; left:50%; top:455px; margin-left:-550px; z-index:80; padding:10px; width:1100px;}
+#recommendDress .menuTable2 {display:none;  position:absolute; left:50%; top:488px; margin-left:-550px; z-index:70; width:1100px; height:294px; background-color:#000; opacity:0.5;}
+#recommendDress .overLayout {visibility:hidden; position:relative; top:262px; z-index:90; width:212px; height:50px; background-color:#000; opacity:0.7; }
 #recommendDress td {color:#fff; font-size:15px; font-weight:bold; width:200px;}
 #recommendDress td .td1{text-align:left; padding:15px 0 0 5px; }
 #recommendDress td .td2{text-align:right; padding:15px 5px 0 0; font-size:15px;}
@@ -94,15 +113,15 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
 /* Main - ourShops & footer 
 --------------------------------------------------------------------------------------- */
 #ourShops {font-size:15px; background-color: #c8fbc8; height:70px; width:100%; padding-top:5px; }
-#ourShops .menuTable{width:1200px;}
+#ourShops .menuTable{width:1100px;}
 #ourShops td {padding-top:8px;}
 #ourShops span {padding-left:20px;}
 
 #footer {background-color: #171b19; height:70px; width:100%; padding-top:5px; }
-#footer .menuTable{width:1200px; font-weight:bold; font-size:15px; color:#fff;}
+#footer .menuTable{width:1100px; font-weight:bold; font-size:15px; color:#fff;}
 #footer span {font-size:22px;}
 #footer td {padding:5px 0 0 0;}
-#footer .rightTD {padding-left:520px;}
+#footer .rightTD {padding-left:450px;}
 #footer .rightTD td {padding:5px 0 0 10px; cursor:pointer;}
-#footer .rightTD td:hover, .rightTD td:focus {color:#fff; #87ceeb; color:#87ceeb;}
+#footer .rightTD td:hover, .rightTD td:focus {color:#fff; color:#87ceeb;}
 
