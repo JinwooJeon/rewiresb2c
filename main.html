@@ -3,21 +3,23 @@
 	<head> 
 		<meta http-equiv="content-type" content="text/html; charset=euc-kr">
 		<title>Dress N Dress</title>
-
+		
+		<script src="jquery-1.7.2.min.js" type="text/javascript"></script>
 		<link href="B2Cstyle.css" rel="stylesheet" type="text/css" />
 
 		<SCRIPT LANGUAGE="JavaScript"> 
-					
+		
+			
 			// total dress List & buffer1 & buffer2 for efficient search.
-			var wholeDress = new Array(100); // receive from server
-			var wholeDressNum = 100; // receive from server
+			var wholeDress = new Array(69); // receive from server
+			var wholeDressNum = 69; // receive from server
 
 			for(var i=0; i<wholeDressNum; i++){
 				wholeDress[i] = new Array(7);
 			}
 
 			var sFilter = 0;
-			var sFilterType = 0;
+			var sFilterNum = 0;
 			
 			var buffer = new Array(100);
 			var bufferLength = 0;
@@ -25,66 +27,95 @@
 				buffer[i] = new Array(7);
 			}
 			
-			var curDressList = new Array(100);
-			for(var i=0; i<100; i++){
+			var curDressList = new Array(69);
+			var curDressLength = 0;
+			for(var i=0; i<69; i++){
 				curDressList[i] = new Array(7);
 			}
 
-			wholeDress[0][0] = "슈퍼드레스";
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d1.jpg";
-			wholeDress[0][3] = "2";
-			wholeDress[0][4] = "2";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "0101000";
+			// assume that maximum filter number is equal to 10. filters[0] is for silhouette, filters[1] is for color, filters[2] is for shops, filters[3]~filters[9] is for details.  
+			var filters = new Array(10); 
+			for(var i=0;i<10;i++){
+				filters[i] = 0;
+			}
 
-			wholeDress[0][0] = "슈퍼드레스";
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d2.jpg";
-			wholeDress[0][3] = "1";
-			wholeDress[0][4] = "3";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "0100001";
+			var scrollShowingCount;
+			var scrollShowingDone = 0;
 
-			wholeDress[0][0] = "슈퍼드레스";
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d3.jpg";
-			wholeDress[0][3] = "1";
-			wholeDress[0][4] = "5";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "1100000";
-			wholeDress[0][0] = "슈퍼드레스";
+			var imsiPath = "images/test/";
 
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d4.jpg";
-			wholeDress[0][3] = "5";
-			wholeDress[0][4] = "4";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "0101100";
-			wholeDress[0][0] = "슈퍼드레스";
+		wholeDress[0][0] = "슈퍼드레스1"; wholeDress[0][1] = "디자이너1"; wholeDress[0][2] = ""+imsiPath+"d1.jpg";wholeDress[0][3] = "1";	wholeDress[0][4] = "1";	wholeDress[0][5] = "1"; wholeDress[0][6] = "0101000";
+		wholeDress[1][0] = "슈퍼드레스2"; wholeDress[1][1] = "디자이너2"; wholeDress[1][2] = ""+imsiPath+"d2.jpg";wholeDress[1][3] = "1";	wholeDress[1][4] = "2";	wholeDress[1][5] = "3"; wholeDress[1][6] = "1110000";
+		wholeDress[2][0] = "슈퍼드레스3"; wholeDress[2][1] = "디자이너3"; wholeDress[2][2] = ""+imsiPath+"d3.jpg";wholeDress[2][3] = "2";	wholeDress[2][4] = "2";	wholeDress[2][5] = "2"; wholeDress[2][6] = "0101011";
+		wholeDress[3][0] = "슈퍼드레스4"; wholeDress[3][1] = "디자이너4"; wholeDress[3][2] = ""+imsiPath+"d4.jpg";wholeDress[3][3] = "2";	wholeDress[3][4] = "3";	wholeDress[3][5] = "4"; wholeDress[3][6] = "1111000";
+		wholeDress[4][0] = "슈퍼드레스5"; wholeDress[4][1] = "디자이너5"; wholeDress[4][2] = ""+imsiPath+"d5.jpg";wholeDress[4][3] = "2";	wholeDress[4][4] = "4";	wholeDress[4][5] = "2"; wholeDress[4][6] = "1100000";
+		wholeDress[5][0] = "슈퍼드레스6"; wholeDress[5][1] = "디자이너6"; wholeDress[5][2] = ""+imsiPath+"d6.jpg";wholeDress[5][3] = "3";	wholeDress[5][4] = "5";	wholeDress[5][5] = "3"; wholeDress[5][6] = "0011000";
+		wholeDress[6][0] = "슈퍼드레스7"; wholeDress[6][1] = "디자이너7"; wholeDress[6][2] = ""+imsiPath+"d7.jpg";wholeDress[6][3] = "3";	wholeDress[6][4] = "6";	wholeDress[6][5] = "1"; wholeDress[6][6] = "0101000";
+		wholeDress[7][0] = "슈퍼드레스8"; wholeDress[7][1] = "디자이너8"; wholeDress[7][2] = ""+imsiPath+"d8.jpg";wholeDress[7][3] = "3";	wholeDress[7][4] = "3";	wholeDress[7][5] = "4"; wholeDress[7][6] = "0110000";
+		wholeDress[8][0] = "슈퍼드레스9"; wholeDress[8][1] = "디자이너9"; wholeDress[8][2] = ""+imsiPath+"d9.jpg";wholeDress[8][3] = "3";	wholeDress[8][4] = "2";	wholeDress[8][5] = "1"; wholeDress[8][6] = "0001010";
+		wholeDress[9][0] = "슈퍼드레스0"; wholeDress[9][1] = "디자이너0"; wholeDress[9][2] = ""+imsiPath+"d10.jpg";wholeDress[9][3] = "4";	wholeDress[9][4] = "5";	wholeDress[9][5] = "4"; wholeDress[9][6] = "0110000";
+		wholeDress[10][0] = "슈퍼드레스a"; wholeDress[10][1] = "디자이너a"; wholeDress[10][2] = ""+imsiPath+"d11.jpg";wholeDress[10][3] = "5";	wholeDress[10][4] = "6"; wholeDress[10][5] = "4"; wholeDress[10][6] = "0111100";
+		wholeDress[11][0] = "슈퍼드레스b"; wholeDress[11][1] = "디자이너b"; wholeDress[11][2] = ""+imsiPath+"d12.jpg";wholeDress[11][3] = "5";	wholeDress[11][4] = "3"; wholeDress[11][5] = "3"; wholeDress[11][6] = "0111000";
+		wholeDress[12][0] = "슈퍼드레스c"; wholeDress[12][1] = "디자이너c"; wholeDress[12][2] = ""+imsiPath+"d13.jpg";wholeDress[12][3] = "5";	wholeDress[12][4] = "1"; wholeDress[12][5] = "2"; wholeDress[12][6] = "0000011";
+		wholeDress[13][0] = "슈퍼드레스d"; wholeDress[13][1] = "디자이너d"; wholeDress[13][2] = ""+imsiPath+"d14.jpg";wholeDress[13][3] = "5";	wholeDress[13][4] = "2"; wholeDress[13][5] = "1"; wholeDress[13][6] = "1000001";
+		wholeDress[14][0] = "슈퍼드레스e"; wholeDress[14][1] = "디자이너f"; wholeDress[14][2] = ""+imsiPath+"d15.jpg";wholeDress[14][3] = "5";	wholeDress[14][4] = "5"; wholeDress[14][5] = "2"; wholeDress[14][6] = "0000110";
+		wholeDress[15][0] = "슈퍼드레스f"; wholeDress[15][1] = "디자이너e"; wholeDress[15][2] = ""+imsiPath+"d16.jpg";wholeDress[15][3] = "5";	wholeDress[15][4] = "6"; wholeDress[15][5] = "3"; wholeDress[15][6] = "1000000";
+		wholeDress[16][0] = "슈퍼드레스g"; wholeDress[16][1] = "디자이너q"; wholeDress[16][2] = ""+imsiPath+"d17.jpg";wholeDress[16][3] = "6";	wholeDress[16][4] = "7"; wholeDress[16][5] = "2"; wholeDress[16][6] = "0000001";
+		wholeDress[17][0] = "슈퍼드레스h"; wholeDress[17][1] = "디자이너w"; wholeDress[17][2] = ""+imsiPath+"d18.jpg";wholeDress[17][3] = "6";	wholeDress[17][4] = "7"; wholeDress[17][5] = "2"; wholeDress[17][6] = "0000111";
+		wholeDress[18][0] = "슈퍼드레스i"; wholeDress[18][1] = "디자이너e"; wholeDress[18][2] = ""+imsiPath+"d19.jpg";wholeDress[18][3] = "1";	wholeDress[18][4] = "5"; wholeDress[18][5] = "4"; wholeDress[18][6] = "1100011";
+		wholeDress[19][0] = "슈퍼드레스j"; wholeDress[19][1] = "디자이너r"; wholeDress[19][2] = ""+imsiPath+"d20.jpg";wholeDress[19][3] = "1";	wholeDress[19][4] = "3"; wholeDress[19][5] = "1"; wholeDress[19][6] = "1001111";
+		wholeDress[20][0] = "슈퍼드레스k"; wholeDress[20][1] = "디자이너t"; wholeDress[20][2] = ""+imsiPath+"d21.jpg";wholeDress[20][3] = "1";	wholeDress[20][4] = "2"; wholeDress[20][5] = "2"; wholeDress[20][6] = "1100000";
+		wholeDress[21][0] = "슈퍼드레스l"; wholeDress[21][1] = "디자이너y"; wholeDress[21][2] = ""+imsiPath+"d22.jpg";wholeDress[21][3] = "2";	wholeDress[21][4] = "3"; wholeDress[21][5] = "1"; wholeDress[21][6] = "1010101";
+		wholeDress[22][0] = "슈퍼드레스m"; wholeDress[22][1] = "디자이너u"; wholeDress[22][2] = ""+imsiPath+"d23.jpg";wholeDress[22][3] = "2";	wholeDress[22][4] = "1"; wholeDress[22][5] = "1"; wholeDress[22][6] = "0101010";
+		
+		wholeDress[23][0] = "앗퍼드레스1"; wholeDress[23][1] = "앗자이너1"; wholeDress[23][2] = ""+imsiPath+"d24.jpg";wholeDress[23][3] = "1";	wholeDress[23][4] = "1"; wholeDress[23][5] = "2"; wholeDress[23][6] = "0101000";
+		wholeDress[24][0] = "앗퍼드레스2"; wholeDress[24][1] = "앗자이너2"; wholeDress[24][2] = ""+imsiPath+"d25.jpg";wholeDress[24][3] = "1";	wholeDress[24][4] = "2"; wholeDress[24][5] = "3"; wholeDress[24][6] = "1110000";
+		wholeDress[25][0] = "앗퍼드레스3"; wholeDress[25][1] = "앗자이너3"; wholeDress[25][2] = ""+imsiPath+"d26.jpg";wholeDress[25][3] = "2";	wholeDress[25][4] = "2"; wholeDress[25][5] = "1"; wholeDress[25][6] = "0101011";
+		wholeDress[26][0] = "앗퍼드레스4"; wholeDress[26][1] = "앗자이너4"; wholeDress[26][2] = ""+imsiPath+"d27.jpg";wholeDress[26][3] = "2";	wholeDress[26][4] = "3"; wholeDress[26][5] = "4"; wholeDress[26][6] = "1111000";
+		wholeDress[27][0] = "앗퍼드레스5"; wholeDress[27][1] = "앗자이너5"; wholeDress[27][2] = ""+imsiPath+"d28.jpg";wholeDress[27][3] = "2";	wholeDress[27][4] = "4"; wholeDress[27][5] = "1"; wholeDress[27][6] = "1100000";
+		wholeDress[28][0] = "앗퍼드레스6"; wholeDress[28][1] = "앗자이너6"; wholeDress[28][2] = ""+imsiPath+"d29.jpg";wholeDress[28][3] = "3";	wholeDress[28][4] = "5"; wholeDress[28][5] = "2"; wholeDress[28][6] = "0011000";
+		wholeDress[29][0] = "앗퍼드레스7"; wholeDress[29][1] = "앗자이너7"; wholeDress[29][2] = ""+imsiPath+"d30.jpg";wholeDress[29][3] = "3";	wholeDress[29][4] = "6"; wholeDress[29][5] = "4"; wholeDress[29][6] = "0101000";
+		wholeDress[30][0] = "앗퍼드레스8"; wholeDress[30][1] = "앗자이너8"; wholeDress[30][2] = ""+imsiPath+"d31.jpg";wholeDress[30][3] = "3";	wholeDress[30][4] = "3"; wholeDress[30][5] = "3"; wholeDress[30][6] = "0110000";
+		wholeDress[31][0] = "앗퍼드레스9"; wholeDress[31][1] = "앗자이너9"; wholeDress[31][2] = ""+imsiPath+"d32.jpg";wholeDress[31][3] = "3";	wholeDress[31][4] = "2"; wholeDress[31][5] = "2"; wholeDress[31][6] = "0001010";
+		wholeDress[32][0] = "앗퍼드레스0"; wholeDress[32][1] = "앗자이너0"; wholeDress[32][2] = ""+imsiPath+"d33.jpg";wholeDress[32][3] = "4";	wholeDress[32][4] = "5"; wholeDress[32][5] = "1"; wholeDress[32][6] = "0110000";
+		wholeDress[33][0] = "앗퍼드레스a"; wholeDress[33][1] = "앗자이너a"; wholeDress[33][2] = ""+imsiPath+"d34.jpg";wholeDress[33][3] = "5";	wholeDress[33][4] = "6"; wholeDress[33][5] = "3"; wholeDress[33][6] = "0111100";
+		wholeDress[34][0] = "앗퍼드레스b"; wholeDress[34][1] = "앗자이너b"; wholeDress[34][2] = ""+imsiPath+"d35.jpg";wholeDress[34][3] = "5";	wholeDress[34][4] = "3"; wholeDress[34][5] = "1"; wholeDress[34][6] = "0111000";
+		wholeDress[35][0] = "앗퍼드레스c"; wholeDress[35][1] = "앗자이너c"; wholeDress[35][2] = ""+imsiPath+"d36.jpg";wholeDress[35][3] = "5";	wholeDress[35][4] = "1"; wholeDress[35][5] = "2"; wholeDress[35][6] = "0000011";
+		wholeDress[36][0] = "앗퍼드레스d"; wholeDress[36][1] = "앗자이너d"; wholeDress[36][2] = ""+imsiPath+"d37.jpg";wholeDress[36][3] = "5";	wholeDress[36][4] = "2"; wholeDress[36][5] = "1"; wholeDress[36][6] = "1000001";
+		wholeDress[37][0] = "앗퍼드레스e"; wholeDress[37][1] = "앗자이너f"; wholeDress[37][2] = ""+imsiPath+"d38.jpg";wholeDress[37][3] = "5";	wholeDress[37][4] = "5"; wholeDress[37][5] = "1"; wholeDress[37][6] = "0000110";
+		wholeDress[38][0] = "앗퍼드레스f"; wholeDress[38][1] = "앗자이너e"; wholeDress[38][2] = ""+imsiPath+"d39.jpg";wholeDress[38][3] = "5";	wholeDress[38][4] = "6"; wholeDress[38][5] = "1"; wholeDress[38][6] = "1000000";
+		wholeDress[39][0] = "앗퍼드레스g"; wholeDress[39][1] = "앗자이너q"; wholeDress[39][2] = ""+imsiPath+"d40.jpg";wholeDress[39][3] = "6";	wholeDress[39][4] = "7"; wholeDress[39][5] = "3"; wholeDress[39][6] = "0000001";
+		wholeDress[40][0] = "앗퍼드레스h"; wholeDress[40][1] = "앗자이너w"; wholeDress[40][2] = ""+imsiPath+"d41.jpg";wholeDress[40][3] = "6";	wholeDress[40][4] = "7"; wholeDress[40][5] = "2"; wholeDress[40][6] = "0000111";
+		wholeDress[41][0] = "앗퍼드레스i"; wholeDress[41][1] = "앗자이너e"; wholeDress[41][2] = ""+imsiPath+"d42.jpg";wholeDress[41][3] = "1";	wholeDress[41][4] = "5"; wholeDress[41][5] = "3"; wholeDress[41][6] = "1100011";
+		wholeDress[42][0] = "앗퍼드레스j"; wholeDress[42][1] = "앗자이너r"; wholeDress[42][2] = ""+imsiPath+"d43.jpg";wholeDress[42][3] = "1";	wholeDress[42][4] = "3"; wholeDress[42][5] = "4"; wholeDress[42][6] = "1001111";
+		wholeDress[43][0] = "앗퍼드레스k"; wholeDress[43][1] = "앗자이너t"; wholeDress[43][2] = ""+imsiPath+"d44.jpg";wholeDress[43][3] = "1";	wholeDress[43][4] = "2"; wholeDress[43][5] = "3"; wholeDress[43][6] = "1100000";
+		wholeDress[44][0] = "앗퍼드레스l"; wholeDress[44][1] = "앗자이너y"; wholeDress[44][2] = ""+imsiPath+"d45.jpg";wholeDress[44][3] = "2";	wholeDress[44][4] = "3"; wholeDress[44][5] = "4"; wholeDress[44][6] = "1010101";
+		wholeDress[45][0] = "앗퍼드레스m"; wholeDress[45][1] = "앗자이너u"; wholeDress[45][2] = ""+imsiPath+"d46.jpg";wholeDress[45][3] = "2";	wholeDress[45][4] = "1"; wholeDress[45][5] = "3"; wholeDress[45][6] = "0101010"; 
 
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d5.jpg";
-			wholeDress[0][3] = "6";
-			wholeDress[0][4] = "3";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "0000111";
-			wholeDress[0][0] = "슈퍼드레스";
+		wholeDress[46][0] = "켁퍼드레스1"; wholeDress[46][1] = "켁자이너1"; wholeDress[46][2] = ""+imsiPath+"d47.jpg";wholeDress[46][3] = "1";	wholeDress[46][4] = "1"; wholeDress[46][5] = "1"; wholeDress[46][6] = "0101000";
+		wholeDress[47][0] = "켁퍼드레스2"; wholeDress[47][1] = "켁자이너2"; wholeDress[47][2] = ""+imsiPath+"d48.jpg";wholeDress[47][3] = "1";	wholeDress[47][4] = "2"; wholeDress[47][5] = "1"; wholeDress[47][6] = "1110000";
+		wholeDress[48][0] = "켁퍼드레스3"; wholeDress[48][1] = "켁자이너3"; wholeDress[48][2] = ""+imsiPath+"d49.jpg";wholeDress[48][3] = "2";	wholeDress[48][4] = "2"; wholeDress[48][5] = "2"; wholeDress[48][6] = "0101011";
+		wholeDress[49][0] = "켁퍼드레스4"; wholeDress[49][1] = "켁자이너4"; wholeDress[49][2] = ""+imsiPath+"d50.jpg";wholeDress[49][3] = "2";	wholeDress[49][4] = "3"; wholeDress[49][5] = "3"; wholeDress[49][6] = "1111000";
+		wholeDress[50][0] = "켁퍼드레스5"; wholeDress[50][1] = "켁자이너5"; wholeDress[50][2] = ""+imsiPath+"d51.jpg";wholeDress[50][3] = "2";	wholeDress[50][4] = "4"; wholeDress[50][5] = "2"; wholeDress[50][6] = "1100000";
+		wholeDress[51][0] = "켁퍼드레스6"; wholeDress[51][1] = "켁자이너6"; wholeDress[51][2] = ""+imsiPath+"d52.jpg";wholeDress[51][3] = "3";	wholeDress[51][4] = "5"; wholeDress[51][5] = "3"; wholeDress[51][6] = "0011000";
+		wholeDress[52][0] = "켁퍼드레스7"; wholeDress[52][1] = "켁자이너7"; wholeDress[52][2] = ""+imsiPath+"d53.jpg";wholeDress[52][3] = "3";	wholeDress[52][4] = "6"; wholeDress[52][5] = "4"; wholeDress[52][6] = "0101000";
+		wholeDress[53][0] = "켁퍼드레스8"; wholeDress[53][1] = "켁자이너8"; wholeDress[53][2] = ""+imsiPath+"d54.jpg";wholeDress[53][3] = "3";	wholeDress[53][4] = "3"; wholeDress[53][5] = "4"; wholeDress[53][6] = "0110000";
+		wholeDress[54][0] = "켁퍼드레스9"; wholeDress[54][1] = "켁자이너9"; wholeDress[54][2] = ""+imsiPath+"d55.jpg";wholeDress[54][3] = "3";	wholeDress[54][4] = "2"; wholeDress[54][5] = "1"; wholeDress[54][6] = "0001010";
+		wholeDress[55][0] = "켁퍼드레스0"; wholeDress[55][1] = "켁자이너0"; wholeDress[55][2] = ""+imsiPath+"d56.jpg";wholeDress[55][3] = "4";	wholeDress[55][4] = "5"; wholeDress[55][5] = "2"; wholeDress[55][6] = "0110000";
+		wholeDress[56][0] = "켁퍼드레스a"; wholeDress[56][1] = "켁자이너a"; wholeDress[56][2] = ""+imsiPath+"d57.jpg";wholeDress[56][3] = "5";	wholeDress[56][4] = "6"; wholeDress[56][5] = "1"; wholeDress[56][6] = "0111100";
+		wholeDress[57][0] = "켁퍼드레스b"; wholeDress[57][1] = "켁자이너b"; wholeDress[57][2] = ""+imsiPath+"d58.jpg";wholeDress[57][3] = "5";	wholeDress[57][4] = "3"; wholeDress[57][5] = "1"; wholeDress[57][6] = "0111000";
+		wholeDress[58][0] = "켁퍼드레스c"; wholeDress[58][1] = "켁자이너c"; wholeDress[58][2] = ""+imsiPath+"d59.jpg";wholeDress[58][3] = "5";	wholeDress[58][4] = "1"; wholeDress[58][5] = "4"; wholeDress[58][6] = "0000011";
+		wholeDress[59][0] = "켁퍼드레스d"; wholeDress[59][1] = "켁자이너d"; wholeDress[59][2] = ""+imsiPath+"d60.jpg";wholeDress[59][3] = "5";	wholeDress[59][4] = "2"; wholeDress[59][5] = "4"; wholeDress[59][6] = "1000001";
+		wholeDress[60][0] = "켁퍼드레스e"; wholeDress[60][1] = "켁자이너f"; wholeDress[60][2] = ""+imsiPath+"d61.jpg";wholeDress[60][3] = "5";	wholeDress[60][4] = "5"; wholeDress[60][5] = "1"; wholeDress[60][6] = "0000110";
+		wholeDress[61][0] = "켁퍼드레스f"; wholeDress[61][1] = "켁자이너e"; wholeDress[61][2] = ""+imsiPath+"d62.jpg";wholeDress[61][3] = "5";	wholeDress[61][4] = "6"; wholeDress[61][5] = "3"; wholeDress[61][6] = "1000000";
+		wholeDress[62][0] = "켁퍼드레스g"; wholeDress[62][1] = "켁자이너q"; wholeDress[62][2] = ""+imsiPath+"d63.jpg";wholeDress[62][3] = "6";	wholeDress[62][4] = "7"; wholeDress[62][5] = "3"; wholeDress[62][6] = "0000001";
+		wholeDress[63][0] = "켁퍼드레스h"; wholeDress[63][1] = "켁자이너w"; wholeDress[63][2] = ""+imsiPath+"d64.jpg";wholeDress[63][3] = "6";	wholeDress[63][4] = "7"; wholeDress[63][5] = "3"; wholeDress[63][6] = "0000111";
+		wholeDress[64][0] = "켁퍼드레스i"; wholeDress[64][1] = "켁자이너e"; wholeDress[64][2] = ""+imsiPath+"d65.jpg";wholeDress[64][3] = "1";	wholeDress[64][4] = "5"; wholeDress[64][5] = "3"; wholeDress[64][6] = "1100011";
+		wholeDress[65][0] = "켁퍼드레스j"; wholeDress[65][1] = "켁자이너r"; wholeDress[65][2] = ""+imsiPath+"d66.jpg";wholeDress[65][3] = "1";	wholeDress[65][4] = "3"; wholeDress[65][5] = "2"; wholeDress[65][6] = "1001111";
+		wholeDress[66][0] = "켁퍼드레스k"; wholeDress[66][1] = "켁자이너t"; wholeDress[66][2] = ""+imsiPath+"d67.jpg";wholeDress[66][3] = "1";	wholeDress[66][4] = "2"; wholeDress[66][5] = "2"; wholeDress[66][6] = "1100000";
+		wholeDress[67][0] = "켁퍼드레스l"; wholeDress[67][1] = "켁자이너y"; wholeDress[67][2] = ""+imsiPath+"d68.jpg";wholeDress[67][3] = "2";	wholeDress[67][4] = "3"; wholeDress[67][5] = "2"; wholeDress[67][6] = "1010101";
+		wholeDress[68][0] = "켁퍼드레스m"; wholeDress[68][1] = "켁자이너u"; wholeDress[68][2] = ""+imsiPath+"d69.jpg";wholeDress[68][3] = "2";	wholeDress[68][4] = "1"; wholeDress[68][5] = "1"; wholeDress[68][6] = "0101010"; 
 
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d6.jpg";
-			wholeDress[0][3] = "2";
-			wholeDress[0][4] = "4";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "1100011";
-			wholeDress[0][0] = "슈퍼드레스";
-
-			wholeDress[0][1] = "디자이너최";
-			wholeDress[0][2] = "images/test/d7.jpg";
-			wholeDress[0][3] = "5";
-			wholeDress[0][4] = "1";
-			wholeDress[0][5] = "Avigail";
-			wholeDress[0][6] = "1010000";
 
 			//-------------------------------------------------------------------------------- mouseOn, out effects of filters
 			var  timerId=0 ;
@@ -144,26 +175,80 @@
 
 			// Basic structure for showing dresses.
 			function showWholeDress(){
-				
-				var cardNumber = 23;
-				var dressNum = 1;
-				
+
+				initializeDress();
+
+				scrollShowingCount =0;
+				var cardNumber = 24;
+				var z=0;
+
+				curDressLength = wholeDressNum;					
+				var localCount = curDressLength;
+
+				for(var i = 0; i <localCount; i++){
+					curDressList[i] = wholeDress[i].slice();
+				}	
+
+				document.getElementById("filterInfo").innerText ="전체 드레스";
+
+			
 				while(cardNumber>0){
 					for(var i=0;i<3;i++){
 						if(cardNumber>0){
 
 							var curTable = document.getElementById("dressPosition"+i);
-							var row = curTable.insertRow(0);
+							var cellPosition = Math.floor(z/3);
+							var row = curTable.insertRow(cellPosition);
 							var cell = row.insertCell(0);
+
 							cell.className="eachDressCell";
-							var tableContents = "<img src='images/test/d"+dressNum+".jpg' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+dressNum+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>드레스1</td><td class='td2'>아비가일</td></tr></table></div>";
+							var tableContents = "<img src='"+wholeDress[z][2]+"' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+z+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>"+wholeDress[z][0]+"</td><td class='td2'>"+wholeDress[z][3]+","+wholeDress[z][4]+","+wholeDress[z][5]+","+wholeDress[z][6]+"</td></tr></table></div>";
 
 							cell.innerHTML = tableContents;
-							dressNum++;
+							z++;
 							cardNumber--;
 						} // if
-					}// for 	
+					}// for
 				}// while
+
+				scrollShowingCount++;
+			}
+
+			function showMoreDress(){
+
+				if(scrollShowingDone == 0){
+					var z = 24*scrollShowingCount;
+
+					if(curDressLength<z+24){
+						var cardNumber = curDressLength-z;
+						scrollShowingDone = 1;
+					}else{
+						var cardNumber = 24;
+					}
+
+					while(cardNumber>0){
+						for(var i=0;i<3;i++){
+							if(cardNumber>0){
+
+								var curTable = document.getElementById("dressPosition"+i);
+								var cellPosition = Math.floor(z/3);
+								var row = curTable.insertRow(cellPosition);
+								var cell = row.insertCell(0);
+
+								cell.className="eachDressCell";
+								var tableContents = "<img src='"+curDressList[z][2]+"' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+z+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>"+curDressList[z][0]+"</td><td class='td2'>"+curDressList[z][3]+","+curDressList[z][4]+","+curDressList[z][5]+","+curDressList[z][6]+"</td></tr></table></div>";
+
+								cell.innerHTML = tableContents;
+								z++;
+								cardNumber--;
+
+							} // if
+						}// for 
+					}// while
+					scrollShowingCount++;
+				}else{
+					return;
+				}
 			}
 
 			// mouse0n & mouseOut effects of semi-transparent layers on the images of the dress search result.
@@ -176,22 +261,15 @@
 			}
 			
 
-
-
 			//--------------------------------------------------------------------------------- click Filter & Make Dress List --------------------------------------------------------------------------------------- 
-
-
-			// assume that maximum filter number is equal to 10. filters[0] is for silhouette, filters[1] is for color, filters[2] is for shops, filters[3]~filters[9] is for details.  
-			var filters = new Array(10); 
-			for(var i=0;i<10;i++){
-				filters[i] = 0;
-			}
 
 			// filterName: silhouette, color, detail, shop 
 			// filterType: specific category names of each filters 
 			// imageOrColor: 실루엣,색, 디테일의 경우 해당 선택한 것의 작은 이미지 혹은 rgb 값이 넘어옴. 
 			// filterNum은 각 필터의 몇번째 세부사항인지 숫자로 넘어옴.	
 			function setFilter(filterName, filterType, imageOrColor, filterNum){   
+						
+				hideMenus();
 
 				doc = document;
 				doc.getElementById("filterInfo").innerText ="드레스 검색 결과 By";
@@ -200,17 +278,17 @@
 				if(filterName != "detail"){
 						
 					if(doc.getElementById(filterName)){	// click another type of existing filter
-						var filterButton = doc.getElementById(filterName+filterNum);
-						//filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};
+						var filterButton = doc.getElementById(filterName);
+						filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};
 						
 					}else{		
 						var filterButton = doc.createElement("input");
-						//filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};			
+						filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};			
 						doc.getElementById("curFilter").appendChild(filterButton);
 					}
 
 					filterButton.setAttribute("type", "button");
-					filterButton.setAttribute("id", filterName+filterNum);
+					filterButton.setAttribute("id", filterName);
 					filterButton.setAttribute("value", filterType);
 					filterButton.setAttribute("class", "filterList");
 
@@ -227,7 +305,7 @@
 						filterButton.setAttribute("type", "button");
 						filterButton.setAttribute("class", "filterList");
 						filterButton.setAttribute("value", filterType);
-						//filterButton.onclick=function(){ deleteFilter(filterName, detailNum)};			
+						filterButton.onclick=function(){ deleteFilter(filterName, filterNum)};			
 
 						doc.getElementById("curFilter").appendChild(filterButton);
 						
@@ -236,11 +314,11 @@
 				}				
 
 				if(sFilter == filterName){					
-					if(sFilterType == filterType){
-						hideMenus();
+					if(sFilterNum == filterNum){
+
 					}else{
-						sFilterType = filterType;
-						makeBuffer(sFilter, sFilterType); // buffer를 만들고 그 것으로 리스트 만들기
+						sFilterNum = filterNum;
+						makeBuffer(sFilter, sFilterNum); // buffer를 만들고 그 것으로 리스트 만들기
 					}
 
 				}else{
@@ -248,8 +326,8 @@
 					if(sFilter == 0){
 						if(filterName != "detail"){
 							sFilter = filterName;
-							sFilterType = filterType;
-							makeBuffer(sFilter, sFilterType); // buffer를 만들고 그것으로 리스트 만들기
+							sFilterNum = filterNum;
+							makeBuffer(sFilter, sFilterNum); // buffer를 만들고 그것으로 리스트 만들기
 
 						}else{
 							makeDress(2); // 전체 드레스로 리스트 만들기
@@ -260,60 +338,69 @@
 				}			
 			}
 
-			function makeBuffer(sFilter, sFilterType){
-				
+			function makeBuffer(sFilter, sFilterNum){
+
 				var filterPosition;
 				var dressTotalNum = wholeDressNum;	// 전역 변수를 지역 변수로 복사
-				var localWholeDress = wholeDress;	// 전역 배열을 지역 배열로 복사
-
+				
 				if(sFilter == "silhouette")		filterPosition = 3;
 				else if(sFilter == "color")		filterPosition = 4;
 				else if(sFilter == "shop")		filterPosition = 5;
 				
-				var imsiBuffer = new Array(100);
-				for (var i=0; i<100; i++){
-					imsiBuffer[i] = new Array(7);
-				}
-
 				var j=0;
 				for(var i =0; i<dressTotalNum; i++){
-					if(localWholeDress[i][filterPosition] == sFilterType){
-						imsiBuffer[j] = localWholeDress[i];
+					if(wholeDress[i][filterPosition] == sFilterNum){
+						buffer[j] = wholeDress[i];
 						j++;
 					}
 				}
-
-				buffer = imsiBuffer;
 				bufferLength = j;
-				makeDress(0, imsiBuffer);
-			}
-			
-			function makeDress(determinant, imsiBuffer){
 				
-				var doc = document;
-				var localDressList;
-				var localDressNum; 
-				var compareFilter;
+				makeDress(0);
+			}
 
-				if(determinant ==0)	{
-					localDressList = imsiBuffer;
-					localDressNum = bufferLength;
-				}else if(determinant == 1){
-					localDressList = buffer;
-					localDressNum = bufferLength;
-				}else if(determinant == 2){
-					localDressList = wholeDress;
-					localDressNum = wholeDressNum;
-				}
+			function initializeDress(){
 
-				// 현재 Dress List 초기화
+				doc = document;
+
 				var curTable1 = doc.getElementById("dressPosition"+0);
 				var curTable2 = doc.getElementById("dressPosition"+1);
 				var curTable3 = doc.getElementById("dressPosition"+2);
 
-				while(curTable1.firstChild){	curTable1.removeChild(curTable1.firstChild);	}
-				while(curTable2.firstChild){	curTable2.removeChild(curTable2.firstChild);	}
-				while(curTable3.firstChild){	curTable3.removeChild(curTable3.firstChild);	}
+				while(curTable1.firstChild){	curTable1.removeChild(curTable1.firstChild);}
+				while(curTable2.firstChild){	curTable2.removeChild(curTable2.firstChild);}
+				while(curTable3.firstChild){	curTable3.removeChild(curTable3.firstChild);}
+			}
+			
+			function makeDress(determinant){
+				
+				var doc = document;
+				var localDressList = new Array();
+				var localDressNum; 
+				var compareFilter;
+
+				if(determinant ==0)	{	// 새로 만든 Buffer로 필터링.
+					localDressNum = bufferLength;					
+					for(var i = 0; i <localDressNum; i++){
+						localDressList[i] = buffer[i].slice();
+					}
+
+				}else if(determinant == 1){	 // 기존에 존재하는 Buffer로 필터링.
+					localDressNum = bufferLength;					
+					for(var i = 0; i <localDressNum; i++){
+						localDressList[i] = buffer[i].slice();
+					}
+
+				}else if(determinant == 2){	  // 전체 드레스로 필터링.
+					localDressNum = wholeDressNum;					
+					for(var i = 0; i <localDressNum; i++){
+						localDressList[i] = wholeDress[i].slice();
+					}					
+				}
+
+				// 현재 Dress List 초기화
+				initializeDress();
+
 
 				var dFiltering = new Array();
 				for (var k=0; k<10 ;k++){
@@ -321,8 +408,8 @@
 				}
 				var dFilteringLength = dFiltering.length;
 
-
 				var z=0;
+				var s=0;
 				for(var i=0; i<localDressNum; i++){
 
 					var j=0;
@@ -339,28 +426,52 @@
 
 						}else if(j>2){	// dFilter 검사
 							if(dFilteringLength==0){
+
 								curDressList[z] = localDressList[i];
+
+								var curTable = document.getElementById("dressPosition"+s);
+								var cellPosition = Math.floor(z/3);
+								var row = curTable.insertRow(cellPosition);
+								var cell = row.insertCell(0);
+								cell.className="eachDressCell";
+								var tableContents = "<img src='"+curDressList[z][2]+"' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+z+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>"+curDressList[z][0]+"</td><td class='td2'>"+curDressList[z][3]+","+curDressList[z][4]+","+curDressList[z][5]+","+curDressList[z][6]+"</td></tr></table></div>";
+								
+								cell.innerHTML = tableContents;
+								if(s==2) s=0;
+								else s++;
+
 								z++;
 								break whileLoop; // 적합
 							}else{
 								for(var t =0; t<dFilteringLength; t++){
 									if(localDressList[i][6].charAt(dFiltering[t])==1){
 										curDressList[z] = localDressList[i];
+
+										var curTable = document.getElementById("dressPosition"+s);
+										var cellPosition = Math.floor(z/3);
+										var row = curTable.insertRow(cellPosition);
+										var cell = row.insertCell(0);
+										cell.className="eachDressCell";
+										var tableContents = "<img src='"+curDressList[z][2]+"' onmouseover='changeClass(this,1)' onmouseout='changeClass(this,2)'><div id='overLay"+z+"' class='overLayout' onmouseover='changeClass(this,-1)' onmouseout='changeClass(this,-2)'><table><tr><td class='td1'>"+curDressList[z][0]+"</td><td class='td2'>"+curDressList[z][3]+","+curDressList[z][4]+","+curDressList[z][5]+","+curDressList[z][6]+"</td></tr></table></div>";
+									
+										cell.innerHTML = tableContents;
+										if(s==2) s=0;
+										else s++;
+
 										z++;
 										break whileLoop;// 적합
-									}
-								}
+									}	//if
+								}	//for 
 								break whileLoop;	// 부적합
-							}
-						}
+							}	// else
+						}	// else if
 						j++;
-					}
-				}
+					}	//while
+				}	//for
+				curDressLength = z;
 			}
 
-			function showMoreDress(){
-				
-			}
+			
 			
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -368,80 +479,117 @@
 
 			function deleteFilter(filterName, filterNum){
 
-				if(doc.getElementById(filterName+filterNum)){
+				if(doc.getElementById(filterName)){
 				
-					var child = doc.getElementById(filterName+filterNum);
+					var child = doc.getElementById(filterName);
 					var parent = child.parentNode;
 					parent.removeChild(child);
 
-					if(filterName == "silhouette"){
-						filters[0] = 0;
-						deleteStandardFilter(filterName);
-					}else if(filterName == "color"){
-						filters[1] = 0;
-						deleteStandardFilter(filterName);
-					}else if(filterName == "shop"){
-						filters[2] = 0;
-						deleteStandardFilter(filterName);
-					}else if (filterName == "detail"){
-						filters[detailNum+2] = 0;
+					if(filterName == "silhouette")			filters[0] = 0;
+					else if(filterName == "color")			filters[1] = 0;
+					else if(filterName == "shop")			filters[2] = 0;
+				}else if(doc.getElementById(filterName+filterNum)){
+					
+					var child = doc.getElementById(filterName+filterNum);
+					var parent = child.parentNode;
+					parent.removeChild(child);
+					
+					if(filterName == "detail")			filters[filterNum+2] = 0;	
+				}
+				
+				var jump = 0;
+
+				for(var i=0;i<10;i++){
+					if(filters[i] !=0){
+						jump = 1;
+						break;
 					}
 				}
-				makeDressList(standardFilterNum);
-			}
 
-			function deleteStandardFilter(filterName){
+				if(jump == 0){
+					sFilter = 0;
+					sFilterNum = 0;
 
-				if(filterName == standardFilter1 && standardFilter2 !=0){	// 전체에서 Buffer1 Array를 다시 생성해야 함.
-					standardFilter1 = standardFilter2;
-					standardFilter2 = 0;
-				}else if(filterName == standardFilter2){		// Buffer1 Array를 그대로 사용 가능.
-					standardFilter2 = 0;
+					showWholeDress();					
+
+				}else if(sFilter == filterName){
+					sFilter = 0;
+					sFilterNum = 0;
+
+					if (filters[0] == 0 && filters[1] ==0 && filters[2] ==0){
+						makeDress(2);	// 전체 드레스 리스트를 이용해 리스트 만듦.
+					}else{
+						if(filters[0] != 0){
+							sFilter = "silhouette";
+							sFilterNum = filters[0];
+							makeBuffer(sFilter, sFilterNum); // buffer를 만들고 그 것으로 리스트 만들기
+						}else if(filters[1] != 0){
+							sFilter = "color";
+							sFilterNum = filters[1];
+							makeBuffer(sFilter, sFilterNum); // buffer를 만들고 그 것으로 리스트 만들기
+						}else if(filters[2] != 0){
+							sFilter = "shop";
+							sFilterNum = filters[3];
+							makeBuffer(sFilter, sFilterNum); // buffer를 만들고 그 것으로 리스트 만들기
+						}
+					}
+				}else{
+					makeDress(1);	// 이미 존재하는 Buffer를 이용하여 리스트 만듦.
 				}
 			}
-          
 			 
-
-			/* 현재 스크롤 위치를 파악함. 
-			var getNowScroll = function(){
+			function getScrollXY() {
+				var x = 0, y = 0;
+				if( typeof( window.pageYOffset ) == 'number' ) {
+					// Netscape				
+					x = window.pageXOffset;
+					y = window.pageYOffset;
+				} else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+					// DOM
+					x = document.body.scrollLeft;
+					y = document.body.scrollTop;
+				} else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+					// IE6 standards compliant mode
+					x = document.documentElement.scrollLeft;
+					y = document.documentElement.scrollTop;
+				}
+				return [x, y];
+			}
+			
+			function getDocHeight() {
 				var de = document.documentElement;
 				var b = document.body;
-				var now = {};
 
-				now.X = document.all ? (!de.scrollLeft ? b.scrollLeft : de.scrollLeft) : (window.pageXOffset ? window.pageXOffset : window.scrollX);
-				now.Y = document.all ? (!de.scrollTop ? b.scrollTop : de.scrollTop) : (window.pageYOffset ? window.pageYOffset : window.scrollY);
-
-				return now;
+				return Math.max( Math.max(b.scrollHeight, de.scrollHeight), Math.max(b.offsetHeight, de.offsetHeight), Math.max(b.clientHeight, de.clientHeight) );
 			}
 
-			var CurrentScroll = function(){
-				var nowScroll = getNowScroll();
-				alert(nowScroll.X + "," + nowScroll.Y);
-			}
-			*/
-
-			function addEventHandler(obj, eventName, handler){
-				
-				if(document.attachEvent){
-					obj.attachEvent("on"+eventName, handler);
-				}else if(document.addEventListener){
-					obj.addEventListener(eventName, handler, false);
-				}
-			}
 
 			function cur(){
-				alert(filters[0]+","+filters[1]+","+filters[2]+","+filters[3]+","+filters[4]+","+filters[5]+","+filters[6]+","+filters[7]+","+filters[8]+","+filters[9]);
+
 			}
 
 			function test(){
-				var aa= "0010110";
-				alert(aa.charAt(2));
-				var bb =1;
-				var cc ="1";
-				if(bb==cc){
-					alert("Same");
-				}
+
 			}
+
+
+			function pageTop(){
+				$(window).scrollTop(0);
+			}
+
+			//Firefox
+			$(document).scroll(function(){ 
+				if(getScrollXY()[1]==0){
+					document.getElementById("ScrollToTop").style.display="none";
+				}else{
+					document.getElementById("ScrollToTop").style.display="block";
+				}
+
+				if(getDocHeight()-getScrollXY()[1]<2500){
+					showMoreDress();
+				}
+			});
+
 		</SCRIPT>
 
 	</head> 
@@ -452,18 +600,18 @@
 				<div id='topMenu'>
 					<table class='menuTable' align="center">
 						<tr>
-							<td class='logo'>Dress N Dress</td>
+							<td class='logo'><a class='a2' href="main.html">Dress N Dress</a></td>
 							<td class='menuCategory'>
 								<ul>
 									<li><button class='a1' >by</button></li>
-									<li><a class='a2' href="#" onmouseover="showMenu(1)" onmouseout="startTimer()" >Silhouette </a></li>
-									<li><a class='a2' href="#" onmouseover="showMenu(2)" onmouseout="startTimer()">Color </a></li>
-									<li><a class='a2' href="#" onmouseover="showMenu(3)" onmouseout="startTimer()">Details </a></li>
-									<li><button class='a1' >or</li>
-									<li><a class='a2' href="#" onmouseover="showMenu(4)" onmouseout="startTimer()">Dress Shops</a></li>
+									<li><span class='a2' onmouseover="showMenu(1)" onmouseout="startTimer()" >Silhouette </span></li>
+									<li><span class='a2' onmouseover="showMenu(2)" onmouseout="startTimer()">Color </span></li>
+									<li><span class='a2' onmouseover="showMenu(3)" onmouseout="startTimer()">Details </span></li>
+									<li><button class='a1' >or</button></li>
+									<li><span class='a2' onmouseover="showMenu(4)" onmouseout="startTimer()">Dress Shops</span></li>
 									<li><span class='padding'></span></li>
-									<li><a class='a2' href="#"><span onclick='cur();'>방문 예약하기</span></a></li>
-									<li><a class='a2' href="#"><span onclick='test();'>입어본 드레스</span></a></li>
+									<li><span class='a2' onclick='cur();'>방문 예약하기</span></li>
+									<li><span class='a2' onclick='test();'>입어본 드레스</span></li>
 
 								</ul>
 							</td>
@@ -480,9 +628,9 @@
 				</div>
 
 				<div id='filter1' onmouseover='tableOn()' onmouseout='tableOut()'>
-					<table class='menuTable' align="left">
+					<table class='menuTable' align="center">
 						<tr>
-							<td class='forPadding'></td>
+					<!--	<td class='forPadding'></td>	-->
 							<td>
 								<table onclick='setFilter("silhouette","프린세스 라인",1,1)' onmouseover='filterOverLayOn("silhouette",1)' onmouseout='filterOverLayOut("silhouette",1)'>
 									<tr><td><input class='silhouette' type='image' src='silhouette1.jpg'><div id='silhouetteOver1' class='overLayout'><table><tr><td class='td1'>드레스1</td></tr></table></div></td></tr>
@@ -519,7 +667,7 @@
 									<tr><td class='silhouetteInfo'>핏 앤 플레어 라인</td></tr>
 								</table>
 							</td>
-							<Td class='forPadding'></td>
+					<!--	<Td class='forPadding'></td> -->
 						</tr>
 					</table>				
 				</div>
@@ -618,10 +766,10 @@
 				
 				<div id='filter4'  onmouseover='tableOn()' onmouseout='tableOut()'>
 					<table class='menuTable' align="left">
-						<tr><td>아비가일</td></tr>
-						<tr><td>찰스박</td></tr>
-						<tr><td>크리스틴스포사</td></tr>
-						<tr><td>문경란웨딩</td></tr>
+						<tr><td onclick='setFilter("shop","아비가일",1,1)'>아비가일</td></tr>
+						<tr><td onclick='setFilter("shop","찰스박",1,2)'>찰스박</td></tr>
+						<tr><td onclick='setFilter("shop","크리스틴스포사",1,3)'>크리스틴스포사</td></tr>
+						<tr><td onclick='setFilter("shop","문경란웨딩",1,4)'>문경란웨딩</td></tr>
 					</table>
 				</div>
 
@@ -647,12 +795,17 @@
 							<td onmouseover='overLayOn(4)' onmouseout='overLayOut(4)'><div id='overLay4' class='overLayout'><table><tr><td class='td1'>드레스4</td><td class='td2'>문경란웨딩</td></tr></table></div><input type='image' src='dress4.png' ></td>
 						</tr>
 					</table>				
-					
 
 					<div class='menuTable2'></div>	
 				</div>
 
 				<div id='searchResult'>
+				</div>
+				
+				<div>
+					<button id="ScrollToTop" type="button"  onclick="pageTop()">
+						Scroll</br> to Top
+					</button>
 				</div>
 
 				<div id='ourShops'>
