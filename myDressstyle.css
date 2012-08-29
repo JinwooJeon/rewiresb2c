@@ -1,0 +1,67 @@
+
+
+
+/* 왼쪽부분
+--------------------------------------------------------------------------------------- */
+#mainDressDetail {font-size:20px; color:#000000; margin-top:65px;}
+#dressDetailCell1 {width:650px; height:800px; overflow:hidden;}
+#dressPhotoDiv {height:700px; border:2px solid black; border-bottom:none; background:#000000;}
+#dressBigImg {height:700px;}
+#dressDetailCell1 .dressPhotoListDiv {height:100px; width:650px; border:2px solid black; border-top:none; overflow:auto; overflow-y:hidden; overflow-x:hidden;}
+#dressPhotoListTable .dressListCell {height:100px; width:90px; border:1px solid black;}
+#dressPhotoListTable td {}
+
+.dressPhotoListScroll {width:50px; height:100px;padding:0px; margin:0px; position:relative; font-size:60px; background:rgba(255,255,255,0.5); cursor:pointer; margin-bottom:-100px; display:none;}
+#scrollLeftButton {top:-102px; left:2px;}
+#scrollRightButton {top:-102px; margin-left:546px;}
+
+
+/* 오른쪽부분
+--------------------------------------------------------------------------------------- */
+#dressDetailCell2 { width:500px; height:800px; padding-left:10px;}
+#designerTable {margin-left:10px;}
+#designerTable .designerPicCell {width:160px; height:150px; border:1px solid  #cccccc;}
+#designerTable td { border:1px solid  #cccccc;}
+#designerSignature {}
+#designerPicImg {width:150px; height:160px; margin-bottom:-5px; background:#000000;}
+#designerName {width: 320px; height:30px; font-size:15px;border-top:1px solid #cccccc; padding-top:5px; margin-bottom:-5px;}
+
+.designConcept {height:100px; width:482px; margin-left:10px; border:1px solid  #cccccc; margin-top:20px;}
+
+.myDressTable {margin-left:10px; margin-top:20px;}
+.myDressTitle {border-bottom:1px solid black; height:30px;font-size:14px; }
+.myDressTable textarea {font-size:15px; resize:none;  width:360px; height:100px; padding:5px; color:#000000; margin-top:10px;}
+#epilogueButton {width:100px; height:112px; margin-left:10px; margin-top:10px;background-color:#171b19; color:#ffffff; border:2px solid #171b19;}
+
+#sendText {font-size:15px; width:320px; height:25px; padding:5px; color:#000000; margin-top:10px;}
+#sendButton  {width:140px; height:40px; margin-left:10px; background-color:#171b19; color:#ffffff; margin-top:10px;}
+
+#visitorName {font-size:15px; width:80px; height:25px; padding:5px; color:#000000; margin-top:10px; margin-bottom:10px;}
+#visitorText {font-size:15px; width:260px; height:25px; padding:5px; color:#000000; margin-top:10px; margin-bottom:10px;}
+#visitorButton {width:100px; height:40px; margin-left:10px; margin-top:10px; margin-bottom:10px; background-color:#171b19; color:#ffffff;}
+
+#visitorMessage {border:1px solid #cccccc; height:120px;}
+
+/* 드레스 클릭
+--------------------------------------------------------------------------------------- */
+
+#photoFocusGrayDiv {position:absolute; top:0px; width:100%;height:100%; background:rgba(0,0,0,0.9); z-index:101; display:none;}
+#focusedPhotoDiv {width:810px; height:700px; margin-top:67px; margin-right:518px; background:rgba(255,255,255,0);}
+#focusedPhotoDiv .focusedPhotoButton {width:80px; height:700px; background:rgba(0,0,0,0); color:rgb(255, 255, 255); font-size:20px;}
+#focusedPhotoDiv ul {list-style:none; }
+#focusedPhotoDiv ul li {float:left; }
+
+
+/* 로그인
+--------------------------------------------------------------------------------------- */
+#loginDiv {position:absolute; z-index:99; width:100%; height:100%; top:0px; left:0px; background:rgba(255,255,255,1);}
+#loginDiv div {margin-top:350px;background-color:#ffffff; width:300px; height:180px; border:2px solid #000000; padding:10px;}
+#loginTable {margin-top:20px;}
+#loginTable .loginLabel {width:100px; height:40px; font-size:14px; text-align:center;}
+#loginTable .loginInput {width:200px; height:40px; font-size:14px; text-align:center;}
+#loginTable .loginInput input {text-align:center; color:black;}
+#loginTable .loginInput select { height:26px; font-size:12px;}
+#marriageYear {width:65px;}
+#marriageMonth, #marriageDate {width:45px;}
+#loginButton {width:150px; height:30px; font-size:14px; margin-top:20px; background-color:#171b19; color:#ffffff;}
+#loginButton:hover {background-color:#ffffff; color:#171b19;}
