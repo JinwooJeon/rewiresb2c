@@ -1,0 +1,56 @@
+/* 컨셉 사진
+--------------------------------------------------------------------------------------- */
+#conceptPhotoDiv {width:100%; height:400px; background-color:#888888;}
+#conceptPhotoDiv img {width:1200px; height:400px;}
+
+/* 샵 메뉴
+--------------------------------------------------------------------------------------- */
+#shopMenu {background-color: #171b19; height:45px; width:100%; padding-top:10px; color:#ffffff;font:bold 15px tahoma;}
+#shopMenu td {width:300px;}
+#shopMenu .shopMenuCriteria span {display:inline-block; border:1px solid #ffffff; width:70px; height:30px; vertical-align:text-bottom; line-height:26px; padding-left:5px;}
+#shopMenu .shopMenuCriteria input {font-size:15px; width:12px; height:14px; padding:0px; background:#000000; color:#ffffff; border:0px solid black; outline:none; cursor:pointer;}
+#shopMenu .shopMenuCriteria input:hover, input:focus {color:#87ceeb;}
+#shopMenuRight span {background-color:#171b19; color:#ffffff;}
+#qnaSpan {margin-right:50px;}
+.menuR:hover, .menuR:focus {cursor:pointer; color:#87ceeb;}
+#shopMenuRight .menuR:hover, .menuR:focus {cursor:pointer; color:#87ceeb;}
+
+/* 드레스 리스트
+--------------------------------------------------------------------------------------- */
+#dressListDiv {width:100%;}
+#dressListInnerDiv {width:1200px; background-color:#aaaaaa;}
+#dressListInnerDiv table {margin-bottom:20px;}
+#dressListInnerDiv table tr td {width:400px; height:1000px; padding-bottom:20px;}
+#dressListInnerDiv .dressListPics {width:350px; border:1px solid black; margin-top:20px;}
+#dressListInnerDiv table tr td div {width:350px;}
+
+
+/* QnA
+--------------------------------------------------------------------------------------- */
+#qnaDiv {display:none; margin-bottom:20px;}
+#qnaInnerDiv {width:1200px; padding-top:10px; padding-bottom:10px; background-color:#aaaaaa;}
+#qnaInnerDiv div {width:1050px; padding-bottom:10px;}
+#qnaInnerDiv input {font-size:15px; width:80px; height:30px; background-color:#171b19; color:#ffffff;border:1px solid black;}
+#qnaInnerDiv input:hover {border:1px solid white;}
+#qnaInnerDiv td {border:1px solid black; font-size:15px; height:30px; background-color:#171b19; color:#ffffff; padding-right:10px; padding-left:10px; text-align:center;}
+#qnaInnerDiv .qnahead0, .qna0 {width:60px;}
+#qnaInnerDiv .qnahead1, .qna1 {width:700px;}
+#qnaInnerDiv .qnahead2, .qna2 {width:60px;}
+#qnaInnerDiv .qnahead3, .qna3 {width:80px;}
+#qnaInnerDiv .qnahead4, .qna4 {width:50px;}
+
+#qnaTable {margin-bottom:10px;}
+#qnaTable tbody tr td {border:1px solid black; font-size:15px; height:30px; background-color:#ffffff; color:#000000; padding-right:10px; padding-left:10px; text-align:center;}
+#qnaTable .qna1 {text-align:left;}
+#qnaTable .qna1 span {cursor:pointer;}
+
+#pageDiv {cursor:pointer;}
+#pageDiv td:hover {background-color:#ffffff; color:#000000;}
+
+#qnaSearchOption {position:relative; top:-1px; width:90px; height:30px; font-size:12px; background-color:#171b19; color:#ffffff;}
+#qnaSearchDiv .qnaSearchText {position:relative; top:1px; width:130px; height:18px;}
+/* contact
+--------------------------------------------------------------------------------------- */
+#contactDiv {display:none;}
+#contactInnerDiv {width:1200px; padding-top:10px; padding-bottom:10px; background-color:#aaaaaa;}
+
