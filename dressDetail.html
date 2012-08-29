@@ -3,25 +3,55 @@
 <head> 
 	<meta http-equiv="content-type" content="text/html; charset=euc-kr">
 	<title>dressndress</title>
-	<link href="B2Cstyle.css" rel="stylesheet" type="text/css" />
+	<link href="basicstyle.css" rel="stylesheet" type="text/css" />
 	<link href="detailDressstyle.css" rel="stylesheet" type="text/css" />
 	<SCRIPT LANGUAGE="JavaScript"> 
-	////
+		
+		var numberOfPics =  11;
+		var currentPicIndex = 0;
+		
 		function onCreate(){
+			setDressList(); // 왼쪽 하단 드레스 리스트
+			setOtherDressList(); //오른쪽 중간 다른 드레스 리스트
+			setImgSize(document.getElementById("designerPicImg"), 160,170); //디자이너 이미지 비율조정
+		}
+		
+		function setDressList(){
 			var doc = document;
 			var dressListText = "<tr>";
 				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
-				dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\" >";
+					dressListText +="<img class=\"dressListImg\" src=\"images/dressbig.jpg\">";
 				dressListText +="</td>";
 			for(var i=0; i<10; i++){
 				dressListText +="<td class=\"dressListCell\" align=\"center\" onmouseover=\"smallDressOver(this)\" onmouseout=\"smallDressOut(this)\" onclick=\"smallDressClick(this)\">";
-				dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\" >";
+					dressListText +="<img class=\"dressListImg\" src=\"images/dresssmall"+i+".jpg\">";
+				
+					
 				dressListText +="</td>";
 			}
 			dressListText += "</tr>";
 			doc.getElementById("dressPhotoListTable").innerHTML = dressListText
 			doc.getElementById("dressPhotoListTable").style.width= 90*11+"px";
 			
+			for(var i=0; i< doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes.length; i++){
+				setImgSize(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[i].childNodes[0],90,100)
+			} 		
+		}
+		
+		function setOtherDressList(){
+			var doc = document;
+			var otherDressListText = "<tr>";
+			for(var i=2; i<7; i++){
+				otherDressListText +="<td align=\"center\">";
+					otherDressListText +="<img class=\"otherDressImg\" src=\"images/dresssmall"+i+".jpg\">";
+				otherDressListText +="</td>";
+			}
+			otherDressListText += "</tr>";
+			doc.getElementById("otherDressTable").innerHTML = otherDressListText
+			
+			for(var i=0; i< doc.getElementById("otherDressTable").childNodes[0].childNodes[0].childNodes.length; i++){
+				setImgSize(doc.getElementById("otherDressTable").childNodes[0].childNodes[0].childNodes[i].childNodes[0],90,100)
+			} 					
 		}
 	
 		function shopNameMouseOver(node){
@@ -46,10 +76,12 @@
 		
 		function dressListScrollButtonOver(node){
 			dressListMouseOver();
+			node.style.backgroundColor="rgba(10,10,230,0.5)"
 			node.style.color="rgb(10, 10, 230)";
 		}
 		function dressListScrollButtonOut(node){
 			dressListMouseOut();
+			node.style.backgroundColor="rgba(255,255,255,0.5)"
 			node.style.color="rgb(0, 0, 0)";
 		}
 		
@@ -71,27 +103,106 @@
 			node.childNodes[0].style.opacity=1;
 		}
 		function smallDressClick(node){
+			currentPicIndex = node.cellIndex;
 			var doc = document;
+			var ratio = getImgRatio(node.childNodes[0].src);
+			
+			doc.getElementById("dressPhotoDiv").innerHTML = 
+			"<img id=\"dressBigImg\" class=\"dressPhotoImg\" src=\"images/dressbig.jpg\" style=\"cursor:pointer;\" onclick=\"dressBigImgClick();\" >"
 			doc.getElementById("dressBigImg").src = node.childNodes[0].src;
+			setImgSize(doc.getElementById("dressBigImg"), 650, 700);
+			doc.getElementById("dressBigImg").style.marginTop = (700-doc.getElementById("dressBigImg").style.height.slice(0,-2))/2 + "px";
+		}
+		
+		function getImgRatio(source){
+			var Imginfo = new Image();
+			Imginfo.src = source;
+			var width = Imginfo.width;
+			var height = Imginfo.height;		
+			
+			return width/height;
+		}
+		
+		function setImgSize(node, moldWidth, moldHeight){
+			var Imgratio = getImgRatio(node.src);
+			var moldratio = moldWidth/moldHeight;
+			if(Imgratio<moldratio){
+				node.style.width = moldHeight*Imgratio + "px";
+				node.style.height = moldHeight + "px";
+				
+			}
+			else{
+				node.style.width = moldWidth + "px";
+				node.style.height = moldWidth/Imgratio + "px";
+			}
+			
 		}
 		
 		function designerPicMouseOver(){
 			var doc = document;
-			doc.getElementById("designerPicImgCell").style.backgroundColor="rgb(255,255,255)";
-			doc.getElementById("designerPicImg").style.opacity=1.0;
+			doc.getElementById("designerPicImg").src = "images/designer.jpg";
 		}
 		function designerPicMouseOut(){
 			var doc = document;
-			doc.getElementById("designerPicImgCell").style.backgroundColor="rgb(102,102,102)";
-			doc.getElementById("designerPicImg").style.opacity=0.5;
+			doc.getElementById("designerPicImg").src = "images/designergray.jpg";
 		}
 		
 		function dressBigImgClick(){
+			var doc = document;
+			doc.getElementById("photoFocusGrayDiv").style.display = "inline";
+			doc.getElementById("focusedPhoto").src = doc.getElementById("dressBigImg").src;
+			setImgSize(doc.getElementById("focusedPhoto"), 650, 700);
+			doc.getElementById("focusedPhoto").style.marginTop = (700-doc.getElementById("focusedPhoto").style.height.slice(0,-2))/2 + "px";
+		}
 		
+		var isFocusedButtonClick = 0;
+		
+		function closeFocusGrayDiv(){
+			var doc = document;
+			if(isFocusedButtonClick==0){
+				doc.getElementById("photoFocusGrayDiv").style.display = "none";			
+			}
+			isFocusedButtonClick = 0;
+		}
+		
+		function focusedPhotoButtonClick(index){
+			var doc = document;
+			isFocusedButtonClick = 1;
+			if(index == 0 && currentPicIndex > 0){
+				currentPicIndex--;
+				smallDressClick(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[currentPicIndex]);
+				dressBigImgClick();
+			}
+			else if(index == 1 &&currentPicIndex<numberOfPics-1){
+				currentPicIndex++;
+				smallDressClick(doc.getElementById("dressPhotoListTable").childNodes[0].childNodes[0].childNodes[currentPicIndex]);
+				dressBigImgClick();
+			}
 		}
 	</SCRIPT>
 </head> 
 <body onload="onCreate();"> 
+
+<!--  드레스 클릭 Div  -->		
+
+	<div id="photoFocusGrayDiv" align="center" valign="center"  onclick="closeFocusGrayDiv()">
+		<div id="focusedPhotoDiv" align="center">
+			<ul>
+				<li>
+					<input id="focusedPhotoLeft" class="focusedPhotoButton" type="button" value="<" onclick="focusedPhotoButtonClick(0);">
+				</li>
+				<li style="width:650px;">
+					<img id="focusedPhoto">
+				</li>
+				<li>
+					<input id="focusedPhotoRight" class="focusedPhotoButton" type="button" value=">" onclick="focusedPhotoButtonClick(1);">
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+<!--  상단 메뉴  -->		
+
 	<div>
 		<div id='topMenu'>
 			<table class='menuTable' align="center">
@@ -112,6 +223,9 @@
 			</table>
 		</div>
 	<div>
+	
+<!--  네비게이션  -->		
+	
 	<div id="mainDressDetail" align="center">
 		<div id="topNavigation" align="left">
 			<input class="detailDressButton" type="button" value="아비가일 드레스" onmouseover="shopNameMouseOver(this)" onmouseout="shopNameMouseOut(this)">
@@ -120,9 +234,12 @@
 		</div>
 		<table >
 			<tr>
+
+<!--  왼쪽  -->		
+
 				<td id="dressDetailCell1" valign="top">
-					<div class="dressPhotoDiv" align="center">
-						<img id="dressBigImg" class="dressPhotoImg" src="images/dressbig.jpg" onclick="dressBigImgClick();">
+					<div id="dressPhotoDiv" align="center" valign="center">
+						<img id="dressBigImg" class="dressPhotoImg" src="images/dressbig.jpg" style="cursor:pointer;" onclick="dressBigImgClick();" >
 					</div>
 					<div id="dressPhotoListDiv" class="dressPhotoListDiv" onmouseover="dressListMouseOver();" onmouseout="dressListMouseOut()">									
 						<table id="dressPhotoListTable">
@@ -131,13 +248,16 @@
 					<input class="dressPhotoListScroll" id="scrollLeftButton" type="button" value="<" onmouseover="dressListScrollButtonOver(this)" onmouseout="dressListScrollButtonOut(this)" onclick="dressListScroll(0)">
 					<input class="dressPhotoListScroll" id="scrollRightButton" type="button" value=">"onmouseover="dressListScrollButtonOver(this)" onmouseout="dressListScrollButtonOut(this)" onclick="dressListScroll(1)">		
 				</td>
+				
+<!--  오른쪽  -->				
+				
 				<td id="dressDetailCell2" valign="top">
 					<table id="designerTable">
 						<tr>
 							<td class="designerPicCell" valign="top" align="center">
 								<ul>
-									<li id="designerPicImgCell" onmouseover="designerPicMouseOver()" onmouseout="designerPicMouseOut()">
-										<img id="designerPicImg" src="images/designer.jpg">
+									<li onmouseover="designerPicMouseOver();" onmouseout="designerPicMouseOut()">
+										<img id="designerPicImg" src="images/designergray.jpg">
 									</li>
 									<li id="designerName" align="center">
 										전진우 디자이너
@@ -165,23 +285,6 @@
 							이 드레스와 주로 같이 입어 보는 다른 드레스들
 						</div>
 						<table id="otherDressTable">
-							<tr>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall0.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall2.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall3.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall5.jpg">
-								</td>
-								<td align="center">
-									<img class="otherDressImg" src="images/dresssmall6.jpg">
-								</td>
-							</tr>
 						</table>	
 					</div>
 					<div id="userCommentDiv">
